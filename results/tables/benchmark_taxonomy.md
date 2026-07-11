@@ -3,7 +3,9 @@
 | VQA | 2015 | open-ended visual question answering | basic image understanding and language response |
 | GQA | 2019 | compositional visual reasoning | scene-graph grounded reasoning analysis |
 | OK-VQA | 2019 | knowledge-based visual question answering | external commonsense and world-knowledge evaluation |
+| TextVQA | 2019 | visual question answering with text reading | OCR and scene-text understanding |
 | ScienceQA | 2022 | multimodal science question answering | educational reasoning with diagrams and explanations |
+| ChartQA | 2022 | chart question answering | visual and logical reasoning over chart data |
 | MME | 2023 | perception and cognition probes | broad diagnostic evaluation for MLLMs |
 | MMBench | 2023 | systematic multimodal ability evaluation | robust multiple-choice evaluation across ability dimensions |
 | MM-Vet | 2023 | integrated multimodal capability evaluation | measures combined recognition knowledge reasoning and generation |

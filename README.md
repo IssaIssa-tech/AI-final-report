@@ -92,11 +92,15 @@ The ChinaXiv-style submission files are in `paper/`:
 
 - `paper_chinaxiv.md`: formatted source manuscript with numbered citations and references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_corrected.pdf`: corrected PDF submission document
-- `paper_chinaxiv.pdf`: earlier PDF export retained in the repository history
+- `paper_chinaxiv_final.pdf`: final PDF submission document
 - `CHINAXIV_FORMAT_CHECKLIST.md`: formatting and integrity checklist
+- `figures/model_timeline.png` and `figures/benchmark_timeline.png`: reproducible academic charts
+
+The layout comparison against the provided ChinaXiv sample is in `docs/chinaxiv_sample_comparison.md`.
 
 The working draft remains available as `paper/paper.md`.
+
+The paper currently has a 222-word abstract and 42 numbered references in the formatted manuscript.
 
 ## Citation Policy
 

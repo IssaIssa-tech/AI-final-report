@@ -4,22 +4,25 @@ Prepared files:
 
 - `paper_chinaxiv.md`: source manuscript with numbered citations and numbered references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_corrected.pdf`: corrected PDF submission document
-- `paper_chinaxiv.pdf`: earlier PDF export retained in the repository history
+- `paper_chinaxiv_final.pdf`: final PDF submission document
 - `references.bib`: source bibliography
+- `figures/model_timeline.png`: model timeline chart
+- `figures/benchmark_timeline.png`: benchmark timeline chart
+- `docs/chinaxiv_sample_comparison.md`: layout comparison with the provided ChinaXiv sample
 
 Formatting applied:
 
-- A4 page size
-- Standard academic margins
+- Letter page size matching the provided ChinaXiv sample PDF
+- Narrow centered margins closely matching the provided ChinaXiv sample
 - Centered title, author, affiliation, and corresponding-author information
-- English abstract
+- English abstract with 222 words
 - Keywords
 - Numbered section headings
 - Main text in academic manuscript layout
 - Two inserted taxonomy tables
+- Two inserted academic charts
 - Numbered in-text citations, e.g. `[1]`
-- Numbered references formatted in GB/T 7714-like style
+- 42 numbered references formatted in GB/T 7714-like style
 - Code Availability section with the populated GitHub repository URL
 - Final verification checklist
 
@@ -30,3 +33,5 @@ Integrity checks:
 - References are generated from `references.bib`
 - Citation keys from the draft are converted to numbered citations
 - The Word document contains the two taxonomy tables
+- The Word document contains reproducible generated charts
+- Source code is available in `scripts/` and `src/`, with environment files in `requirements.txt` and `environment.yml`

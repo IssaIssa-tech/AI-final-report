@@ -18,6 +18,8 @@ PAPER_MD = ROOT / "paper" / "paper.md"
 BIB = ROOT / "paper" / "references.bib"
 MODEL_TABLE = ROOT / "paper" / "tables" / "model_taxonomy.csv"
 BENCHMARK_TABLE = ROOT / "paper" / "tables" / "benchmark_taxonomy.csv"
+MODEL_FIGURE = ROOT / "paper" / "figures" / "model_timeline.png"
+BENCHMARK_FIGURE = ROOT / "paper" / "figures" / "benchmark_timeline.png"
 OUT_MD = ROOT / "paper" / "paper_chinaxiv.md"
 OUT_DOCX = ROOT / "paper" / "paper_chinaxiv.docx"
 
@@ -104,8 +106,98 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def model_summary_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "stage": "Pre-LLM VLP",
+            "examples": "ViLBERT, LXMERT, UNITER, Oscar, VinVL",
+            "main pattern": "cross-modal encoder pretraining",
+            "role in survey": "foundation for image-text representation learning",
+        },
+        {
+            "stage": "Open-vocabulary alignment",
+            "examples": "CLIP, ALIGN, OFA, PaLI",
+            "main pattern": "contrastive or sequence-to-sequence scaling",
+            "role in survey": "transferable visual-language representations",
+        },
+        {
+            "stage": "Frozen-connector MLLMs",
+            "examples": "Flamingo, BLIP-2, MiniGPT-4",
+            "main pattern": "vision encoder connected to frozen or partly frozen LLM",
+            "role in survey": "efficient multimodal generation and few-shot adaptation",
+        },
+        {
+            "stage": "Instruction-tuned MLLMs",
+            "examples": "InstructBLIP, LLaVA, Qwen-VL, mPLUG-Owl",
+            "main pattern": "visual instruction tuning and alignment",
+            "role in survey": "assistant-style multimodal interaction",
+        },
+        {
+            "stage": "Grounded and visual-expert MLLMs",
+            "examples": "Kosmos-2, Shikra, Ferret, CogVLM, InternVL",
+            "main pattern": "grounding, localization, expert modules, and scale",
+            "role in survey": "fine-grained visual evidence and grounding reliability",
+        },
+        {
+            "stage": "Expanded modality systems",
+            "examples": "PaLM-E, Video-LLaVA, Visual ChatGPT, GPT-4V",
+            "main pattern": "embodiment, video, tool use, or closed frontier alignment",
+            "role in survey": "broader deployment and reproducibility trade-offs",
+        },
+    ]
+
+
+def benchmark_summary_rows() -> list[dict[str, str]]:
+    return [
+        {
+            "benchmark group": "General VQA",
+            "examples": "VQA, GQA, OK-VQA",
+            "primary capability": "image-conditioned question answering",
+            "evaluation risk": "language priors and dataset bias",
+        },
+        {
+            "benchmark group": "OCR and chart reasoning",
+            "examples": "TextVQA, ChartQA",
+            "primary capability": "reading scene text and structured graphics",
+            "evaluation risk": "small text, chart parsing, and answer normalization",
+        },
+        {
+            "benchmark group": "Science and mathematics",
+            "examples": "ScienceQA, MathVista",
+            "primary capability": "diagram-grounded and visual mathematical reasoning",
+            "evaluation risk": "fluent but unsupported reasoning",
+        },
+        {
+            "benchmark group": "Broad diagnostics",
+            "examples": "MME, MMBench, MM-Vet",
+            "primary capability": "perception, cognition, and integrated skills",
+            "evaluation risk": "prompt sensitivity and scoring differences",
+        },
+        {
+            "benchmark group": "Hallucination checks",
+            "examples": "POPE",
+            "primary capability": "detecting unsupported object claims",
+            "evaluation risk": "coverage beyond object presence remains limited",
+        },
+        {
+            "benchmark group": "Expert-domain reasoning",
+            "examples": "MMMU",
+            "primary capability": "college-level multidisciplinary multimodal reasoning",
+            "evaluation risk": "contamination and domain coverage",
+        },
+    ]
+
+
+def display_rows(path: Path) -> list[dict[str, str]]:
+    if path == MODEL_TABLE:
+        return model_summary_rows()
+    if path == BENCHMARK_TABLE:
+        return benchmark_summary_rows()
+    return read_csv(path)
+
+
 def csv_to_markdown(path: Path) -> str:
-    rows = read_csv(path)
+    rows = display_rows(path)
     headers = list(rows[0].keys())
     lines = [
         "| " + " | ".join(headers) + " |",
@@ -126,15 +218,17 @@ def build_chinaxiv_markdown() -> tuple[str, list[str], list[str]]:
 
     model_table = "Table 1. Representative MLLM architecture taxonomy.\n\n" + csv_to_markdown(MODEL_TABLE)
     benchmark_table = "Table 2. Representative MLLM benchmark taxonomy.\n\n" + csv_to_markdown(BENCHMARK_TABLE)
+    model_figure = "Figure 1. Timeline distribution of representative MLLM-related models.\n\n![Figure 1](figures/model_timeline.png)"
+    benchmark_figure = "Figure 2. Timeline distribution of representative MLLM benchmarks.\n\n![Figure 2](figures/benchmark_timeline.png)"
 
     text = text.replace(
         "## 6. Training Paradigms",
-        model_table + "\n\n## 6. Training Paradigms",
+        model_table + "\n\n" + model_figure + "\n\n## 6. Training Paradigms",
         1,
     )
     text = text.replace(
         "### 7.6 Comparative Analysis Without Fabricated Scores",
-        benchmark_table + "\n\n### 7.6 Comparative Analysis Without Fabricated Scores",
+        benchmark_table + "\n\n" + benchmark_figure + "\n\n### 7.6 Comparative Analysis Without Fabricated Scores",
         1,
     )
 
@@ -157,7 +251,7 @@ def set_cell_text(cell, text: str, bold: bool = False) -> None:
     run.bold = bold
     run.font.name = "Times New Roman"
     run._element.rPr.rFonts.set(qn("w:eastAsia"), "SimSun")
-    run.font.size = Pt(8)
+    run.font.size = Pt(6)
 
 
 def add_csv_table(doc: Document, caption: str, path: Path) -> None:
@@ -165,10 +259,10 @@ def add_csv_table(doc: Document, caption: str, path: Path) -> None:
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
     for run in para.runs:
         run.font.name = "Times New Roman"
-        run.font.size = Pt(9)
+        run.font.size = Pt(8)
         run.bold = True
 
-    rows = read_csv(path)
+    rows = display_rows(path)
     headers = list(rows[0].keys())
     table = doc.add_table(rows=1, cols=len(headers))
     table.style = "Table Grid"
@@ -181,6 +275,18 @@ def add_csv_table(doc: Document, caption: str, path: Path) -> None:
             set_cell_text(cells[idx], row[header])
 
 
+def add_figure(doc: Document, caption: str, image_path: Path) -> None:
+    if image_path.exists():
+        para = doc.add_paragraph()
+        para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = para.add_run()
+        run.add_picture(str(image_path), width=Cm(11.8))
+    para = doc.add_paragraph(caption)
+    para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    for run in para.runs:
+        set_normal_run(run, size=8, bold=True)
+
+
 def set_normal_run(run, size: int = 10, bold: bool = False) -> None:
     run.font.name = "Times New Roman"
     run._element.rPr.rFonts.set(qn("w:eastAsia"), "SimSun")
@@ -190,10 +296,10 @@ def set_normal_run(run, size: int = 10, bold: bool = False) -> None:
 
 def add_paragraph(doc: Document, text: str, style: str | None = None, align=None) -> None:
     para = doc.add_paragraph(style=style)
-    if align is not None:
-        para.alignment = align
-    para.paragraph_format.first_line_indent = Cm(0.74) if style is None else None
+    para.alignment = align if align is not None else WD_ALIGN_PARAGRAPH.JUSTIFY
+    para.paragraph_format.first_line_indent = None
     para.paragraph_format.line_spacing = 1.15
+    para.paragraph_format.space_after = Pt(3)
     run = para.add_run(text)
     set_normal_run(run)
 
@@ -203,11 +309,11 @@ def add_heading(doc: Document, text: str, level: int) -> None:
     if level == 1:
         para.paragraph_format.space_before = Pt(12)
         para.paragraph_format.space_after = Pt(6)
-        size = 13
+        size = 12
     else:
         para.paragraph_format.space_before = Pt(8)
         para.paragraph_format.space_after = Pt(4)
-        size = 11
+        size = 10
     run = para.add_run(text)
     set_normal_run(run, size=size, bold=True)
 
@@ -215,12 +321,18 @@ def add_heading(doc: Document, text: str, level: int) -> None:
 def create_docx(china_md: str, references: list[str]) -> None:
     doc = Document()
     section = doc.sections[0]
-    section.page_width = Cm(21)
-    section.page_height = Cm(29.7)
-    section.top_margin = Cm(2.54)
-    section.bottom_margin = Cm(2.54)
-    section.left_margin = Cm(3.18)
-    section.right_margin = Cm(3.18)
+    section.page_width = Cm(21.59)
+    section.page_height = Cm(27.94)
+    section.top_margin = Cm(4.45)
+    section.bottom_margin = Cm(3.10)
+    section.left_margin = Cm(4.72)
+    section.right_margin = Cm(4.72)
+    section.footer_distance = Cm(2.80)
+
+    footer = section.footer.paragraphs[0]
+    footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    footer_run = footer.add_run("https://github.com/NGARAMA-TECH/AI-final-report    ChinaXiv-style preprint")
+    set_normal_run(footer_run, size=8)
 
     styles = doc.styles
     styles["Normal"].font.name = "Times New Roman"
@@ -233,7 +345,7 @@ def create_docx(china_md: str, references: list[str]) -> None:
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = p.add_run(title)
-    set_normal_run(r, size=16, bold=True)
+    set_normal_run(r, size=14, bold=True)
 
     metadata = [
         "ISSA ISSA RASHID",
@@ -272,6 +384,14 @@ def create_docx(china_md: str, references: list[str]) -> None:
         if stripped.startswith("Table 2. Representative"):
             add_csv_table(doc, stripped, BENCHMARK_TABLE)
             skip_until_after_header = True
+            continue
+        if stripped.startswith("Figure 1."):
+            add_figure(doc, stripped, MODEL_FIGURE)
+            continue
+        if stripped.startswith("Figure 2."):
+            add_figure(doc, stripped, BENCHMARK_FIGURE)
+            continue
+        if stripped.startswith("!["):
             continue
         if skip_until_after_header:
             if stripped.startswith("## ") or stripped.startswith("### "):
