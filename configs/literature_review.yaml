@@ -1,0 +1,18 @@
+paper:
+  title: "A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions"
+  type: "ChinaXiv survey paper"
+  citation_style: "GB/T 7714"
+  language: "English"
+  target_length_words: "8000-10000"
+reproducibility:
+  no_fabricated_results: true
+  no_unverified_references: true
+  quantitative_results_policy: "Only include numbers from executed experiments or directly verified source papers."
+  public_repository: "https://github.com/NGARAMA-TECH/AI-final-report"
+survey_axes:
+  - architecture
+  - training_paradigm
+  - benchmark_focus
+  - limitations
+  - reproducibility_status
+

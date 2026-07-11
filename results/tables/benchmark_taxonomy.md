@@ -1,0 +1,12 @@
+| benchmark | year | primary_focus | typical_use_in_mllm_evaluation |
+| --- | --- | --- | --- |
+| VQA | 2015 | open-ended visual question answering | basic image understanding and language response |
+| GQA | 2019 | compositional visual reasoning | scene-graph grounded reasoning analysis |
+| OK-VQA | 2019 | knowledge-based visual question answering | external commonsense and world-knowledge evaluation |
+| ScienceQA | 2022 | multimodal science question answering | educational reasoning with diagrams and explanations |
+| MME | 2023 | perception and cognition probes | broad diagnostic evaluation for MLLMs |
+| MMBench | 2023 | systematic multimodal ability evaluation | robust multiple-choice evaluation across ability dimensions |
+| MM-Vet | 2023 | integrated multimodal capability evaluation | measures combined recognition knowledge reasoning and generation |
+| POPE | 2023 | object hallucination evaluation | checks whether models hallucinate absent objects |
+| MMMU | 2023 | expert-level multimodal multidisciplinary understanding | tests college-level subject reasoning with images |
+| MathVista | 2023 | visual mathematical reasoning | evaluates math reasoning grounded in visual context |
