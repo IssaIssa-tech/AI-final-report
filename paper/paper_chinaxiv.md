@@ -1,8 +1,8 @@
 # A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions
 
-Authors: ISSA RASHID ISSA  
+Authors: ISSA ISSA RASHID  
 Affiliation: School of Computer Science and Technology, Harbin Institute of Technology, Shenzhen, China  
-Corresponding author: ISSA RASHID ISSA, 25sf51115@stu.hit.edu.cn
+Corresponding author: ISSA ISSA RASHID, 25sf51115@stu.hit.edu.cn
 
 ## Abstract
 

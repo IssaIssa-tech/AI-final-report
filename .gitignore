@@ -6,8 +6,8 @@ checkpoints/*
 logs/*
 datasets/raw/*
 datasets/processed/*
+paper/paper_chinaxiv.pdf
 !checkpoints/.gitkeep
 !logs/.gitkeep
 !datasets/raw/.gitkeep
 !datasets/processed/.gitkeep
-

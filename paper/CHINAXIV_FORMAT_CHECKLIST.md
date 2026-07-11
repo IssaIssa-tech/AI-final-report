@@ -4,7 +4,8 @@ Prepared files:
 
 - `paper_chinaxiv.md`: source manuscript with numbered citations and numbered references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv.pdf`: PDF submission document
+- `paper_chinaxiv_corrected.pdf`: corrected PDF submission document
+- `paper_chinaxiv.pdf`: earlier PDF export retained in the repository history
 - `references.bib`: source bibliography
 
 Formatting applied:
@@ -29,4 +30,3 @@ Integrity checks:
 - References are generated from `references.bib`
 - Citation keys from the draft are converted to numbered citations
 - The Word document contains the two taxonomy tables
-

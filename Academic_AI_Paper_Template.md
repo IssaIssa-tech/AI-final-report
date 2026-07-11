@@ -12,13 +12,13 @@ University: Harbin Institute of Technology, Shenzhen
 
 School: School of Computer Science and Technology
 
-Author: ISSA RASHID ISSA
+Author: ISSA ISSA RASHID
 
 Student ID: 25SF51115
 
 Email: 25sf51115@stu.hit.edu.cn
 
-Corresponding author: ISSA RASHID ISSA, 25sf51115@stu.hit.edu.cn
+Corresponding author: ISSA ISSA RASHID, 25sf51115@stu.hit.edu.cn
 
 Programming language: Python
 
@@ -195,4 +195,3 @@ AI-final-report/
 - All figures, tables, and equations are technically correct.
 - The repository structure matches the paper description.
 - The code availability URL points to an actual repository before public availability is claimed.
-

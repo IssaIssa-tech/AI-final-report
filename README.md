@@ -2,7 +2,7 @@
 
 Research topic: A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions
 
-Author: ISSA RASHID ISSA  
+Author: ISSA ISSA RASHID  
 Student ID: 25SF51115  
 Email: 25sf51115@stu.hit.edu.cn  
 Course: Advanced Artificial Intelligence (2026)  
@@ -92,7 +92,8 @@ The ChinaXiv-style submission files are in `paper/`:
 
 - `paper_chinaxiv.md`: formatted source manuscript with numbered citations and references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv.pdf`: PDF submission document
+- `paper_chinaxiv_corrected.pdf`: corrected PDF submission document
+- `paper_chinaxiv.pdf`: earlier PDF export retained in the repository history
 - `CHINAXIV_FORMAT_CHECKLIST.md`: formatting and integrity checklist
 
 The working draft remains available as `paper/paper.md`.

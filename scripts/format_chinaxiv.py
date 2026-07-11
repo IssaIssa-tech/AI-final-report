@@ -236,9 +236,9 @@ def create_docx(china_md: str, references: list[str]) -> None:
     set_normal_run(r, size=16, bold=True)
 
     metadata = [
-        "ISSA RASHID ISSA",
+        "ISSA ISSA RASHID",
         "School of Computer Science and Technology, Harbin Institute of Technology, Shenzhen, China",
-        "Corresponding author: ISSA RASHID ISSA, 25sf51115@stu.hit.edu.cn",
+        "Corresponding author: ISSA ISSA RASHID, 25sf51115@stu.hit.edu.cn",
         "ChinaXiv preprint style manuscript",
     ]
     for item in metadata:
