@@ -166,16 +166,16 @@ def benchmark_summary_rows() -> list[dict[str, str]]:
             "Evaluation Risk": "language priors and dataset bias",
         },
         {
-            "Benchmark Group": "OCR and chart reasoning",
-            "Examples": "TextVQA, ChartQA",
-            "Primary Capability": "reading scene text and structured graphics",
-            "Evaluation Risk": "small text, chart parsing, and answer normalization",
+            "Benchmark Group": "OCR and Chart Reasoning",
+            "Examples": "TextVQA, ChartQA, DocVQA",
+            "Primary Capability": "Reading scene text and structured graphics",
+            "Evaluation Risk": "Small text, chart parsing, and answer normalization",
         },
         {
-            "Benchmark Group": "Science and mathematics",
+            "Benchmark Group": "Science and Mathematics",
             "Examples": "ScienceQA, MathVista",
-            "Primary Capability": "diagram-grounded and visual mathematical reasoning",
-            "Evaluation Risk": "fluent but unsupported reasoning",
+            "Primary Capability": "Diagram-grounded and visual mathematical reasoning",
+            "Evaluation Risk": "Fluent but unsupported reasoning",
         },
         {
             "Benchmark Group": "Broad diagnostics",
@@ -184,16 +184,16 @@ def benchmark_summary_rows() -> list[dict[str, str]]:
             "Evaluation Risk": "prompt sensitivity and scoring differences",
         },
         {
-            "Benchmark Group": "Hallucination checks",
-            "Examples": "POPE",
-            "Primary Capability": "detecting unsupported object claims",
-            "Evaluation Risk": "coverage beyond object presence remains limited",
+            "Benchmark Group": "Hallucination",
+            "Examples": "POPE, HallusionBench",
+            "Primary Capability": "Detecting unsupported object claims and illusions",
+            "Evaluation Risk": "Coverage beyond object presence remains limited",
         },
         {
-            "Benchmark Group": "Expert-domain reasoning",
+            "Benchmark Group": "Expert-Domain Reasoning",
             "Examples": "MMMU",
-            "Primary Capability": "college-level multidisciplinary multimodal reasoning",
-            "Evaluation Risk": "contamination and domain coverage",
+            "Primary Capability": "College-level multidisciplinary multimodal reasoning",
+            "Evaluation Risk": "Contamination and domain coverage",
         },
     ]
 
@@ -237,7 +237,7 @@ def build_chinaxiv_markdown() -> tuple[str, list[str], list[str]]:
 
     text = text.replace("## References\n\nThe bibliography is maintained in `references.bib`.\n", "").rstrip()
 
-    architecture_figure = "Figure 1. General MLLM architecture and information-flow bottleneck.\n\n![Figure 1](figures/architecture_diagram.png)"
+    architecture_figure = "Figure 1. General MLLM architecture and information-flow bottleneck showing the visual encoder, connector, and language model components.\n\n![Figure 1](figures/architecture_diagram.png)"
     model_comparison_part_a_headers = ["Model", "Year", "Vision Encoder", "LLM Backbone", "Connector", "Open Source"]
     model_comparison_part_b_headers = [
         "Model",

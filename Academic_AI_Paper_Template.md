@@ -2,7 +2,7 @@
 
 ## Project Information
 
-Research topic: A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions
+Research topic: Survey on Multimodal Intelligence: Architectures, Training Paradigms, and Evaluation of Multimodal Large Language Models
 
 Paper type: ChinaXiv survey paper
 

@@ -1,4 +1,4 @@
-# A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions
+# Survey on Multimodal Intelligence: Architectures, Training Paradigms, and Evaluation of Multimodal Large Language Models
 
 Authors: ISSA ISSA RASHID  
 Student ID: 25SF51115  
@@ -115,7 +115,7 @@ The theoretical tension in MLLMs is therefore between compression and grounding.
 
 The most important theoretical issue is the visual-token bottleneck. A model cannot reason over evidence that has been discarded before the language model receives it. This survey therefore views connectors not as minor engineering components but as epistemic filters: they decide what the language model is allowed to know about the image. Future theory should explain not only how to align modalities, but also how to measure information loss, uncertainty, and evidence faithfulness during visual-to-language transfer.
 
-Figure 1. General MLLM architecture and information-flow bottleneck.
+Figure 1. General MLLM architecture and information-flow bottleneck showing the visual encoder, connector, and language model components.
 
 ![Figure 1](figures/architecture_diagram.png)
 
@@ -317,11 +317,11 @@ Table 3. Representative MLLM benchmark taxonomy.
 | Benchmark Group | Examples | Primary Capability | Evaluation Risk |
 | --- | --- | --- | --- |
 | General VQA | VQA, GQA, OK-VQA | image-conditioned question answering | language priors and dataset bias |
-| OCR and chart reasoning | TextVQA, ChartQA | reading scene text and structured graphics | small text, chart parsing, and answer normalization |
-| Science and mathematics | ScienceQA, MathVista | diagram-grounded and visual mathematical reasoning | fluent but unsupported reasoning |
+| OCR and Chart Reasoning | TextVQA, ChartQA, DocVQA | Reading scene text and structured graphics | Small text, chart parsing, and answer normalization |
+| Science and Mathematics | ScienceQA, MathVista | Diagram-grounded and visual mathematical reasoning | Fluent but unsupported reasoning |
 | Broad diagnostics | MME, MMBench, MM-Vet | perception, cognition, and integrated skills | prompt sensitivity and scoring differences |
-| Hallucination checks | POPE | detecting unsupported object claims | coverage beyond object presence remains limited |
-| Expert-domain reasoning | MMMU | college-level multidisciplinary multimodal reasoning | contamination and domain coverage |
+| Hallucination | POPE, HallusionBench | Detecting unsupported object claims and illusions | Coverage beyond object presence remains limited |
+| Expert-Domain Reasoning | MMMU | College-level multidisciplinary multimodal reasoning | Contamination and domain coverage |
 
 Figure 4. Benchmark taxonomy for MLLM evaluation.
 
@@ -449,7 +449,7 @@ Fourth, trustworthy MLLM research requires reproducible references, transparent 
 
 ### 5.5.2 Course Knowledge Reflection and Expansion
 
-The survey deepens understanding of the Advanced Artificial Intelligence course because MLLMs combine multiple course modules in one system. Structural intelligence explains the neural computation behind encoders, connectors, and language backbones. Visual intelligence explains the perception modules that convert images into features. Language intelligence explains Transformers and LLM reasoning. Generative intelligence explains output generation and the risk of hallucination. Graph intelligence provides tools for relational reasoning and scene/document structure. Multimodal intelligence explains cross-modal fusion. Reinforcement intelligence explains human-feedback alignment and refusal behavior. Agent intelligence explains tool use, planning, and multimodal workflows [27].
+The survey deepens understanding of the Advanced Artificial Intelligence course because MLLMs combine multiple course modules in one system. The title "Survey on Multimodal Intelligence" reflects this focus on Module 6 of the eight-module framework, while the content demonstrates integration with all other modules. Structural intelligence explains the neural computation behind encoders, connectors, and language backbones. Visual intelligence explains the perception modules that convert images into features. Language intelligence explains Transformers and LLM reasoning. Generative intelligence explains output generation and the risk of hallucination. Graph intelligence provides tools for relational reasoning and scene/document structure. Multimodal intelligence explains cross-modal fusion. Reinforcement intelligence explains human-feedback alignment and refusal behavior. Agent intelligence explains tool use, planning, and multimodal workflows [27].
 
 This course-level view clarifies why MLLMs are a suitable final-report topic. They are not only an application of one module; they are a frontier integration of visual, language, generative, reinforcement, and agent intelligence. The report therefore demonstrates systematic course mastery while focusing the deeper investigation on multimodal intelligence.
 
@@ -493,7 +493,7 @@ The report did not include a live open-source MLLM demonstration because no cont
 
 Multimodal large language models represent a major shift in artificial intelligence research. They combine visual perception, language generation, instruction following, and reasoning in a single interface. Their development builds on transformers, large language models, contrastive vision-language learning, generative pretraining, connector-based alignment, and visual instruction tuning. Representative systems such as CLIP, Flamingo, BLIP-2, InstructBLIP, LLaVA, MiniGPT-4, Qwen-VL, InternVL, CogVLM, and GPT-4V illustrate the diversity of architecture and alignment strategies.
 
-The central lesson is that MLLM progress cannot be understood only through benchmark scores. Architecture, training data, grounding, hallucination behavior, safety, openness, and reproducibility all matter. Benchmarks such as VQA, GQA, OK-VQA, ScienceQA, MME, MMBench, MM-Vet, MMMU, POPE, and MathVista evaluate important capabilities, but each covers only part of the problem. Reliable deployment requires broader evaluation and more transparent reporting.
+The central lesson is that MLLM progress cannot be understood only through benchmark scores. Architecture, training data, grounding, hallucination behavior, safety, openness, and reproducibility all matter. Benchmarks such as VQA, GQA, OK-VQA, ScienceQA, MME, MMBench, MM-Vet, MMMU, POPE, and MathVista evaluate important capabilities, but each covers only part of the problem. Reliable deployment requires broader evaluation and more transparent reporting. The title change from a general MLLM survey to a "Survey on Multimodal Intelligence" better aligns with the course's eight-module framework while maintaining the paper's technical focus on architectures, training, and evaluation.
 
 This survey provides a reproducible foundation for a ChinaXiv-style final report. It includes a verified bibliography, taxonomy tables, scripts, and explicit limitations. The work can be extended by adding updated literature, deeper benchmark analysis, or executed experiments with full reproducibility artifacts.
 

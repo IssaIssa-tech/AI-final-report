@@ -19,9 +19,9 @@ Target file: `paper/paper_chinaxiv_course_guideline_final_v4.pdf`
 ## Font Observations
 
 - Sample common font sizes: `[(10.0, 844), (9.0, 18), (12.0, 18), (7.0, 13), (14.3, 9), (7.1, 1)]`
-- Target common font sizes: `[(9.9, 813), (12.0, 4), (9.0, 3), (14.1, 3)]`
+- Target common font sizes: `[(9.9, 838), (12.0, 4), (9.0, 3), (14.1, 2)]`
 - Sample common fonts: `[('LMRoman10-Regular', 816), ('LMRoman10-Bold', 28), ('LMRoman12-Bold', 27), ('LMRoman9-Regular', 18), ('LatinModernMath-Regular', 13)]`
-- Target common fonts: `[('TimesNewRomanPSMT', 810), ('TimesNewRomanPS-BoldMT', 13)]`
+- Target common fonts: `[('TimesNewRomanPSMT', 835), ('TimesNewRomanPS-BoldMT', 12)]`
 
 ## Formatting Decision
 
