@@ -17,11 +17,11 @@ This repository contains a reproducible survey-paper package for a course final 
 
 No benchmark numbers are fabricated in this package. The paper discusses architectures, training paradigms, datasets, and evaluation practices qualitatively. Any future quantitative table must be populated only from executed experiments or directly verified source papers.
 
-The intended public repository URL is:
+The public repository URL is:
 
 https://github.com/IssaIssa-tech/AI-final-report
 
-At the time this local package was prepared, the public GitHub repository existed but was empty. Upload these local files before claiming that the public repository contains the reproducibility materials.
+The repository contains the manuscript, references, source scripts, tables, figures, generated presentation, and final ChinaXiv-style submission files.
 
 ## Repository Structure
 
@@ -92,7 +92,7 @@ The ChinaXiv-style submission files are in `paper/`:
 
 - `paper_chinaxiv.md`: formatted source manuscript with numbered citations and references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_final_with_bottom_line_newurl_v2.pdf`: final PDF submission document with footer rule, corrected GitHub URL, and expanded references
+- `paper_chinaxiv_professional_revision_v3.pdf`: final professionally revised PDF submission document
 - `CHINAXIV_FORMAT_CHECKLIST.md`: formatting and integrity checklist
 - `figures/model_timeline.png` and `figures/benchmark_timeline.png`: reproducible academic charts
 
@@ -100,7 +100,7 @@ The layout comparison against the provided ChinaXiv sample is in `docs/chinaxiv_
 
 The working draft remains available as `paper/paper.md`.
 
-The paper currently has a 222-word abstract and 67 numbered references in the formatted manuscript.
+The paper currently has a 222-word abstract, 67 numbered references, 14 Author's Analysis subsections, 2 practical case studies, and professional comparison tables/figures.
 
 ## Code Explanation Presentation
 

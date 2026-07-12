@@ -1,0 +1,13 @@
+Model,Year,Vision Encoder,LLM Backbone,Connector,Open Source,Major Strength,Major Weakness
+CLIP,2021,ResNet or Vision Transformer,Text encoder,Contrastive shared embedding,Yes,Strong open-vocabulary image-text alignment,Not a generative conversational MLLM
+Flamingo,2022,Perceiver-style visual resampler,Chinchilla-family language model,Gated cross-attention,No,Strong few-shot interleaved image/video-text learning,Closed weights and limited reproducibility
+BLIP-2,2023,Frozen image encoder,Frozen LLM,Q-Former,Yes,Efficient bridge between vision encoders and LLMs,Connector may compress away fine visual detail
+InstructBLIP,2023,Frozen image encoder,Vicuna or FlanT5-style LLM,Q-Former with instruction tuning,Yes,Better instruction following than BLIP-2,Still sensitive to instruction-data quality
+LLaVA,2023,CLIP ViT,Vicuna-style LLM,Linear projection,Yes,Simple and influential open visual instruction tuning baseline,Can hallucinate when visual grounding is weak
+MiniGPT-4,2024,Vision Transformer with Q-Former,Vicuna-style LLM,Linear projection after Q-Former,Yes,Compact alignment recipe for image dialogue,Limited fine-grained grounding and OCR reliability
+Qwen-VL,2023,Vision-language encoder,Qwen language model,Multimodal adapter,Partly,Good OCR localization and general visual dialogue,Training details and data scale are difficult to fully reproduce
+InternVL,2024,Scaled vision foundation model,LLM backbone,Vision-language alignment module,Yes,Strong generic visual-linguistic capability,Large-scale training makes reproduction costly
+CogVLM,2024,Visual expert module,Pretrained language model,Visual expert integration,Yes,Preserves language ability while adding visual expertise,Architecture is more complex than projection-based models
+GPT-4V,2023,Not publicly disclosed,Not publicly disclosed,Not publicly disclosed,No,High-capability frontier multimodal assistant,Closed architecture data and training process
+Gemini,2023,Not fully public,Not fully public,Native multimodal system design,No,Strong frontier multimodal model family,Closed training details limit independent analysis
+Ferret,2024,Vision encoder with region grounding,LLM backbone,Grounding-aware connector,Yes,Supports referring and grounding at flexible granularity,Requires reliable region-level annotation and grounding

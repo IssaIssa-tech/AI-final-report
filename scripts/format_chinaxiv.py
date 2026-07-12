@@ -18,8 +18,14 @@ PAPER_MD = ROOT / "paper" / "paper.md"
 BIB = ROOT / "paper" / "references.bib"
 MODEL_TABLE = ROOT / "paper" / "tables" / "model_taxonomy.csv"
 BENCHMARK_TABLE = ROOT / "paper" / "tables" / "benchmark_taxonomy.csv"
+MODEL_COMPARISON_TABLE = ROOT / "paper" / "tables" / "model_comparison.csv"
 MODEL_FIGURE = ROOT / "paper" / "figures" / "model_timeline.png"
 BENCHMARK_FIGURE = ROOT / "paper" / "figures" / "benchmark_timeline.png"
+ARCHITECTURE_FIGURE = ROOT / "paper" / "figures" / "architecture_diagram.png"
+CONNECTOR_FIGURE = ROOT / "paper" / "figures" / "connector_tradeoff_diagram.png"
+BENCHMARK_TAXONOMY_FIGURE = ROOT / "paper" / "figures" / "benchmark_taxonomy_diagram.png"
+GROUNDING_FIGURE = ROOT / "paper" / "figures" / "grounding_workflow_diagram.png"
+HALLUCINATION_FIGURE = ROOT / "paper" / "figures" / "hallucination_illustration.png"
 OUT_MD = ROOT / "paper" / "paper_chinaxiv.md"
 OUT_DOCX = ROOT / "paper" / "paper_chinaxiv.docx"
 
@@ -216,19 +222,41 @@ def build_chinaxiv_markdown() -> tuple[str, list[str], list[str]]:
 
     text = text.replace("## References\n\nThe bibliography is maintained in `references.bib`.\n", "").rstrip()
 
-    model_table = "Table 1. Representative MLLM architecture taxonomy.\n\n" + csv_to_markdown(MODEL_TABLE)
-    benchmark_table = "Table 2. Representative MLLM benchmark taxonomy.\n\n" + csv_to_markdown(BENCHMARK_TABLE)
-    model_figure = "Figure 1. Timeline distribution of representative MLLM-related models.\n\n![Figure 1](figures/model_timeline.png)"
-    benchmark_figure = "Figure 2. Timeline distribution of representative MLLM benchmarks.\n\n![Figure 2](figures/benchmark_timeline.png)"
+    architecture_figure = "Figure 1. General MLLM architecture and information-flow bottleneck.\n\n![Figure 1](figures/architecture_diagram.png)"
+    comparison_table = "Table 1. Comprehensive comparison of representative MLLMs.\n\n" + csv_to_markdown(MODEL_COMPARISON_TABLE)
+    model_table = "Table 2. Representative MLLM architecture taxonomy.\n\n" + csv_to_markdown(MODEL_TABLE)
+    connector_figure = "Figure 2. Connector trade-offs in MLLM design.\n\n![Figure 2](figures/connector_tradeoff_diagram.png)"
+    model_figure = "Figure 3. Timeline distribution of representative MLLM-related models.\n\n![Figure 3](figures/model_timeline.png)"
+    benchmark_table = "Table 3. Representative MLLM benchmark taxonomy.\n\n" + csv_to_markdown(BENCHMARK_TABLE)
+    benchmark_taxonomy_figure = "Figure 4. Benchmark taxonomy for MLLM evaluation.\n\n![Figure 4](figures/benchmark_taxonomy_diagram.png)"
+    benchmark_figure = "Figure 5. Timeline distribution of representative MLLM benchmarks.\n\n![Figure 5](figures/benchmark_timeline.png)"
+    hallucination_figure = "Figure 6. Illustrative hallucination mechanism.\n\n![Figure 6](figures/hallucination_illustration.png)"
+    grounding_figure = "Figure 7. Evidence-grounded response workflow.\n\n![Figure 7](figures/grounding_workflow_diagram.png)"
+
+    text = text.replace(
+        "## 4. Methodology",
+        architecture_figure + "\n\n## 4. Methodology",
+        1,
+    )
 
     text = text.replace(
         "## 6. Training Paradigms",
-        model_table + "\n\n" + model_figure + "\n\n## 6. Training Paradigms",
+        comparison_table + "\n\n" + model_table + "\n\n" + connector_figure + "\n\n" + model_figure + "\n\n## 6. Training Paradigms",
         1,
     )
     text = text.replace(
         "### 7.6 Comparative Analysis Without Fabricated Scores",
-        benchmark_table + "\n\n" + benchmark_figure + "\n\n### 7.6 Comparative Analysis Without Fabricated Scores",
+        benchmark_table + "\n\n" + benchmark_taxonomy_figure + "\n\n" + benchmark_figure + "\n\n### 7.6 Comparative Analysis Without Fabricated Scores",
+        1,
+    )
+    text = text.replace(
+        "The scientifically preferable answer would be:",
+        hallucination_figure + "\n\nThe scientifically preferable answer would be:",
+        1,
+    )
+    text = text.replace(
+        "The correct system behavior should include uncertainty:",
+        grounding_figure + "\n\nThe correct system behavior should include uncertainty:",
         1,
     )
 
@@ -378,7 +406,6 @@ def create_docx(china_md: str, references: list[str]) -> None:
 
     in_references = False
     in_code_block = False
-    skip_until_after_header = False
     idx = 1
     while idx < len(lines):
         line = lines[idx].rstrip()
@@ -392,27 +419,32 @@ def create_docx(china_md: str, references: list[str]) -> None:
             continue
         if stripped.startswith("Authors:") or stripped.startswith("Affiliation:") or stripped.startswith("Corresponding author:"):
             continue
-        if stripped.startswith("Table 1. Representative"):
+        if stripped.startswith("Table 1. Comprehensive"):
+            add_csv_table(doc, stripped, MODEL_COMPARISON_TABLE)
+            continue
+        if stripped.startswith("Table 2. Representative MLLM architecture"):
             add_csv_table(doc, stripped, MODEL_TABLE)
-            skip_until_after_header = True
             continue
-        if stripped.startswith("Table 2. Representative"):
+        if stripped.startswith("Table 3. Representative MLLM benchmark"):
             add_csv_table(doc, stripped, BENCHMARK_TABLE)
-            skip_until_after_header = True
             continue
-        if stripped.startswith("Figure 1."):
-            add_figure(doc, stripped, MODEL_FIGURE)
-            continue
-        if stripped.startswith("Figure 2."):
-            add_figure(doc, stripped, BENCHMARK_FIGURE)
+        figure_map = {
+            "Figure 1.": ARCHITECTURE_FIGURE,
+            "Figure 2.": CONNECTOR_FIGURE,
+            "Figure 3.": MODEL_FIGURE,
+            "Figure 4.": BENCHMARK_TAXONOMY_FIGURE,
+            "Figure 5.": BENCHMARK_FIGURE,
+            "Figure 6.": HALLUCINATION_FIGURE,
+            "Figure 7.": GROUNDING_FIGURE,
+        }
+        matched_figure = next((path for prefix, path in figure_map.items() if stripped.startswith(prefix)), None)
+        if matched_figure is not None:
+            add_figure(doc, stripped, matched_figure)
             continue
         if stripped.startswith("!["):
             continue
-        if skip_until_after_header:
-            if stripped.startswith("## ") or stripped.startswith("### "):
-                skip_until_after_header = False
-            else:
-                continue
+        if stripped.startswith("|"):
+            continue
         if not stripped:
             continue
         if stripped == "## References":

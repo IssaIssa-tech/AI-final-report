@@ -26,7 +26,7 @@ Framework: PyTorch if original experiments are added later. The current survey p
 
 GitHub repository: https://github.com/IssaIssa-tech/AI-final-report
 
-Repository status: the GitHub URL exists, but the local reproducibility package must be uploaded before the paper claims public code availability.
+Repository status: the GitHub URL is populated with the reproducibility package and final submission files.
 
 Research area: Multimodal Large Language Models (MLLMs)
 
@@ -135,9 +135,9 @@ Intended repository:
 
 https://github.com/IssaIssa-tech/AI-final-report
 
-Use this wording until the repository is populated:
+Use this wording:
 
-"The local reproducibility package has been prepared. The public GitHub repository URL exists, but the repository must be populated before public code availability is claimed."
+"The reproducibility package is publicly available at the GitHub repository URL, including manuscript files, references, tables, figures, scripts, and final submission documents."
 
 ## Reproducible Repository Structure
 

@@ -4,8 +4,13 @@ Prepared files:
 
 - `paper_chinaxiv.md`: source manuscript with numbered citations and numbered references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_final_with_bottom_line_newurl_v2.pdf`: final PDF submission document with footer rule, corrected GitHub URL, and expanded references
+- `paper_chinaxiv_professional_revision_v3.pdf`: final professionally revised PDF submission document
 - `references.bib`: source bibliography
+- `figures/architecture_diagram.png`: MLLM architecture diagram
+- `figures/connector_tradeoff_diagram.png`: connector trade-off diagram
+- `figures/benchmark_taxonomy_diagram.png`: benchmark taxonomy diagram
+- `figures/grounding_workflow_diagram.png`: grounding workflow diagram
+- `figures/hallucination_illustration.png`: hallucination illustration
 - `figures/model_timeline.png`: model timeline chart
 - `figures/benchmark_timeline.png`: benchmark timeline chart
 - `docs/chinaxiv_sample_comparison.md`: layout comparison with the provided ChinaXiv sample
@@ -20,8 +25,11 @@ Formatting applied:
 - Keywords
 - Numbered section headings
 - Main text in academic manuscript layout
-- Two inserted taxonomy tables
-- Two inserted academic charts
+- Three inserted comparison/taxonomy tables
+- Comprehensive model comparison table
+- Seven inserted academic diagrams/charts
+- Fourteen Author's Analysis subsections
+- Two practical case studies
 - Numbered in-text citations, e.g. `[1]`
 - 67 numbered references formatted in GB/T 7714-like style
 - Code Availability section with the populated GitHub repository URL
