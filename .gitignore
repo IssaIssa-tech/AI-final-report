@@ -10,6 +10,7 @@ paper/paper_chinaxiv.pdf
 paper/paper_chinaxiv_corrected.pdf
 paper/paper_chinaxiv_final.pdf
 paper/paper_chinaxiv_final_with_bottom_line.pdf
+paper/paper_chinaxiv_final_with_bottom_line_newurl.pdf
 chinaxiv-*.pdf
 docs/*.png
 !checkpoints/.gitkeep

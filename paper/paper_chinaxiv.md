@@ -20,7 +20,7 @@ Multimodal large language models address this limitation by coupling visual enco
 
 The field has moved quickly because MLLMs inherit two sources of progress. From computer vision, they inherit stronger image encoders, richer pretraining corpora, and improved grounding methods. From language modeling, they inherit instruction-following behavior, chain-of-thought style reasoning, retrieval-augmented workflows, tool use, and deployment ecosystems. This combination creates impressive qualitative behavior, but it also introduces evaluation difficulties. A model may answer a question fluently while misreading the image, grounding text incorrectly, or relying on language priors. Benchmark performance can be sensitive to prompt templates, answer extraction, dataset leakage, and scoring rules. Consequently, survey work in this area must distinguish real measured evidence from demonstration claims.
 
-This paper surveys MLLMs from the perspective of architecture, training, evaluation, and reproducibility. It focuses on models and benchmarks that have shaped the research conversation: CLIP, Flamingo, BLIP-2, InstructBLIP, LLaVA, MiniGPT-4, Qwen-VL, InternVL, CogVLM, and GPT-4V [12]. It also examines benchmark families including VQA [13], GQA [14], OK-VQA [15], ScienceQA [16], MME [17], MMBench [18], MM-Vet [19], MMMU [20], POPE [21], and MathVista [22]. No new benchmark scores are reported. Where benchmark names are discussed, the purpose is to explain what they evaluate and why they matter.
+This paper surveys MLLMs from the perspective of architecture, training, evaluation, and reproducibility. It focuses on models and benchmarks that have shaped the research conversation: CLIP, Flamingo, BLIP-2, InstructBLIP, LLaVA, MiniGPT-4, Qwen-VL, InternVL, CogVLM, and GPT-4V [12]. It also examines benchmark families including VQA [13], GQA [14], OK-VQA [15], ScienceQA [16], MME [17], MMBench [18], MM-Vet [19], MMMU [20], POPE [21], and MathVista [22]. Recent survey papers and community resources have also attempted to systematize this expanding field [23] [24] [25] [26]. No new benchmark scores are reported. Where benchmark names are discussed, the purpose is to explain what they evaluate and why they matter.
 
 The contributions of this survey are fourfold. First, it provides a structured taxonomy of MLLM architectures, separating representation learning, connector-based adaptation, instruction-tuned systems, and visual-expert designs. Second, it compares training paradigms, including contrastive pretraining, generative captioning, bootstrapped alignment, visual instruction tuning, and safety alignment. Third, it analyzes benchmark categories and the practical risks of over-interpreting leaderboard numbers. Fourth, it provides a reproducible local package containing the paper draft, bibliography, taxonomy tables, and scripts for table generation and citation validation.
 
@@ -28,15 +28,19 @@ The contributions of this survey are fourfold. First, it provides a structured t
 
 Research on MLLMs builds on several earlier lines of work: transformer sequence modeling, vision-language representation learning, visual question answering, image captioning, and instruction-following language models. The transformer architecture introduced self-attention as a scalable mechanism for sequence modeling [1]. Large language models later demonstrated that scaling and broad pretraining can produce strong few-shot behavior across tasks [2]. These developments supplied the language backbone used by many modern MLLMs.
 
-Vision-language representation learning provided the second foundation. Earlier transformer-based systems such as ViLBERT, LXMERT, UNITER, Oscar, VinVL, and OFA studied cross-modal pretraining before the current MLLM wave [23] [24] [25] [26] [27] [28]. CLIP trained image and text encoders with a contrastive objective over image-caption pairs, producing transferable open-vocabulary visual representations [3]. ALIGN scaled a similar idea with noisy image-text supervision and showed that large web-scale data could support robust cross-modal retrieval and classification [4]. These models are not full MLLMs in the current sense because they do not perform open-ended multimodal dialogue through a generative language model. Nevertheless, they established a practical strategy: align visual and textual representations using paired data, then reuse the learned representation for downstream tasks.
+Vision-language representation learning provided the second foundation. Earlier attention-based visual question answering and captioning systems highlighted the value of bottom-up visual features before the current MLLM wave [27]. Transformer-based systems such as ViLBERT, LXMERT, UNITER, Oscar, VinVL, and OFA then studied cross-modal pretraining in more unified settings [28] [29] [30] [31] [32] [33]. CLIP trained image and text encoders with a contrastive objective over image-caption pairs, producing transferable open-vocabulary visual representations [3]. ALIGN scaled a similar idea with noisy image-text supervision and showed that large web-scale data could support robust cross-modal retrieval and classification [4]. These models are not full MLLMs in the current sense because they do not perform open-ended multimodal dialogue through a generative language model. Nevertheless, they established a practical strategy: align visual and textual representations using paired data, then reuse the learned representation for downstream tasks.
 
-A second group of works moved from retrieval-style representation learning toward generative vision-language models. BLIP unified understanding and generation with bootstrapped captions and filtering [29]. Flamingo connected strong visual encoders to frozen language models with cross-attention layers and demonstrated few-shot learning over interleaved image, video, and text inputs [5]. BLIP-2 introduced a Querying Transformer, commonly called Q-Former, to bridge frozen image encoders and frozen language models efficiently [6]. These models are important because they show that full end-to-end retraining is not the only route to multimodal competence. Careful adapter or connector design can exploit powerful unimodal components while reducing training cost.
+A second group of works moved from retrieval-style representation learning toward generative vision-language models. BLIP unified understanding and generation with bootstrapped captions and filtering [34]. Flamingo connected strong visual encoders to frozen language models with cross-attention layers and demonstrated few-shot learning over interleaved image, video, and text inputs [5]. BLIP-2 introduced a Querying Transformer, commonly called Q-Former, to bridge frozen image encoders and frozen language models efficiently [6]. These models are important because they show that full end-to-end retraining is not the only route to multimodal competence. Careful adapter or connector design can exploit powerful unimodal components while reducing training cost.
 
 Instruction tuning then became central. InstructBLIP adapted the BLIP-2 design toward instruction following [9]. LLaVA showed that visual instruction data could turn a vision encoder and a language model into an open multimodal assistant [8]. MiniGPT-4 provided another compact alignment recipe using a frozen visual encoder and a Vicuna-style language model [10]. These works changed the evaluation focus from task-specific metrics to interactive behavior: the model must answer questions, describe scenes, reason over diagrams, and follow user intent.
 
-Recent systems have expanded the design space. PaLI and PaLM-E illustrate multilingual and embodied multimodal scaling [30] [31]. Kosmos-1 and Kosmos-2 emphasize aligning perception with language and grounding multimodal language models to the world [32] [33]. Qwen-VL emphasizes abilities such as text reading and localization in addition to general visual dialogue [11]. mPLUG-Owl, Shikra, Ferret, VILA, Video-LLaVA, and Visual ChatGPT represent additional directions in modularization, referential dialogue, grounding, pretraining, video alignment, and tool-assisted visual interaction [34] [35] [36] [37] [38] [39]. InternVL studies scaling of vision foundation models and alignment for generic visual-linguistic tasks [40]. CogVLM uses a visual expert approach to integrate visual capability into pretrained language models while preserving language competence [7]. GPT-4V represents a closed frontier system described through a system card rather than full open model weights or training details [12]. The contrast between open and closed systems is now a major reproducibility issue: closed systems can be evaluated externally, but their training data, architecture, and alignment processes cannot be independently inspected.
+Recent systems have expanded the design space. PaLI and PaLM-E illustrate multilingual and embodied multimodal scaling [35] [36]. Kosmos-1 and Kosmos-2 emphasize aligning perception with language and grounding multimodal language models to the world [37] [38]. Qwen-VL emphasizes abilities such as text reading and localization in addition to general visual dialogue [11]. mPLUG-Owl, Shikra, Ferret, VILA, Video-LLaVA, and Visual ChatGPT represent additional directions in modularization, referential dialogue, grounding, pretraining, video alignment, and tool-assisted visual interaction [39] [40] [41] [42] [43] [44]. InternVL studies scaling of vision foundation models and alignment for generic visual-linguistic tasks [45]. CogVLM uses a visual expert approach to integrate visual capability into pretrained language models while preserving language competence [7]. GPT-4V represents a closed frontier system described through a system card rather than full open model weights or training details [12]. The contrast between open and closed systems is now a major reproducibility issue: closed systems can be evaluated externally, but their training data, architecture, and alignment processes cannot be independently inspected.
 
-Evaluation research has also evolved. Early visual question answering benchmarks such as VQA [13], GQA [14], and OK-VQA [15] tested specific combinations of perception, language, compositional reasoning, and external knowledge. TextVQA and ChartQA extended evaluation toward visual text reading and chart reasoning [41] [42]. ScienceQA introduced science-question reasoning with multimodal explanations [16]. Modern MLLM benchmarks such as MME, MMBench, MM-Vet, and MMMU attempt to measure broader capability dimensions [17] [18] [19] [20]. POPE focuses specifically on object hallucination [21], while MathVista evaluates mathematical reasoning in visual contexts [22]. This benchmark expansion reflects a key point: no single test can characterize an MLLM.
+Additional recent work broadens the field beyond still-image chat. GPT-4 and Gemini show the role of frontier-scale multimodal or multimodal-adjacent systems [46] [47]. OpenFlamingo and IDEFICS/OBELICS emphasize reproducible or openly described training infrastructure and interleaved image-text corpora [48] [49]. ImageBind explores shared embeddings across multiple modalities [50], while NExT-GPT, LLaMA-VID, and Video-ChatGPT extend the discussion toward any-to-any multimodality and video understanding [51] [52] [53]. Model composition research further asks whether separately trained multimodal experts can be combined rather than retrained from scratch [54].
+
+Evaluation research has also evolved. Early visual question answering benchmarks such as VQA [13], GQA [14], OK-VQA [15], A-OKVQA, and CLEVR tested specific combinations of perception, language, compositional reasoning, and external knowledge [55] [56]. TextVQA, DocVQA, and ChartQA extended evaluation toward visual text reading, document images, and chart reasoning [57] [58] [59]. ScienceQA introduced science-question reasoning with multimodal explanations [16]. Modern MLLM benchmarks such as MME, MMBench, MM-Vet, MMMU, SEED-Bench, and HallusionBench attempt to measure broader capability dimensions, generative comprehension, and hallucination or visual-illusion behavior [17] [18] [19] [20] [60] [61]. POPE focuses specifically on object hallucination [21], while MathVista evaluates mathematical reasoning in visual contexts [22]. This benchmark expansion reflects a key point: no single test can characterize an MLLM.
+
+This survey also includes a HITSZ-linked grounded evaluation perspective. CulturALL includes Wenjiang Luo among the authors and lists Baotian Hu with Harbin Institute of Technology, Shenzhen affiliation; it benchmarks multilingual and multicultural competence on grounded tasks [62]. This is relevant because MLLM evaluation is increasingly concerned not only with object recognition and English visual question answering, but also with cultural grounding, multilingual robustness, and task settings where visual or contextual evidence must be interpreted carefully.
 
 ## 3. Theoretical Foundation
 
@@ -106,7 +110,7 @@ The strength of contrastive models is transferability. They produce visual repre
 
 ### 5.2 Generative Vision-Language Pretraining
 
-BLIP introduced bootstrapping methods for unified vision-language understanding and generation [29]. Its core insight is that noisy web captions can be improved through caption generation and filtering, producing better supervision for downstream learning. This line of work bridges the gap between static representation learning and text generation.
+BLIP introduced bootstrapping methods for unified vision-language understanding and generation [34]. Its core insight is that noisy web captions can be improved through caption generation and filtering, producing better supervision for downstream learning. This line of work bridges the gap between static representation learning and text generation.
 
 Flamingo is a major step toward general-purpose multimodal generation [5]. It connects visual inputs to a language model with gated cross-attention and supports interleaved image/video and text inputs. The model's few-shot framing is important because it treats visual tasks as promptable problems rather than fixed-output classifiers. However, Flamingo is not fully open in the sense of public weights and training data, which limits independent reproduction.
 
@@ -124,7 +128,7 @@ The main benefit is usability. Users can ask natural questions about images and 
 
 ### 5.5 Expanded Capability Models
 
-Qwen-VL extends the open MLLM landscape with attention to localization, text reading, and broader multimodal tasks [11]. InternVL studies scale in vision foundation models and alignment for generic vision-language tasks [40]. CogVLM introduces a visual expert design to add visual capability while preserving language ability [7]. These systems show that MLLM architecture is not converging to one simple pattern. Instead, the field is testing several hypotheses about how to best preserve both visual detail and language competence.
+Qwen-VL extends the open MLLM landscape with attention to localization, text reading, and broader multimodal tasks [11]. InternVL studies scale in vision foundation models and alignment for generic vision-language tasks [45]. CogVLM introduces a visual expert design to add visual capability while preserving language ability [7]. These systems show that MLLM architecture is not converging to one simple pattern. Instead, the field is testing several hypotheses about how to best preserve both visual detail and language competence.
 
 Closed frontier systems such as GPT-4V also influence the field [12]. They provide evidence that high-capability multimodal assistants are possible, but their closed nature creates evaluation and reproducibility limits. Researchers can test inputs and outputs, but they cannot inspect training data, architecture, alignment methods, or internal error causes. This makes open systems essential for scientific analysis even when closed systems may perform strongly.
 
@@ -183,7 +187,7 @@ Contrastive pretraining aligns images and text at the representation level. It i
 
 ### 6.2 Captioning and Generative Pretraining
 
-Generative pretraining teaches models to produce text from visual input. Captioning encourages the model to describe salient objects, attributes, and relations. However, captions are often incomplete. A caption may ignore details that are crucial for a later question. If a model is trained primarily on captions, it may underperform on tasks that require reading text, locating small objects, or answering unusual questions. BLIP-style bootstrapping addresses part of this issue by improving caption quality [29].
+Generative pretraining teaches models to produce text from visual input. Captioning encourages the model to describe salient objects, attributes, and relations. However, captions are often incomplete. A caption may ignore details that are crucial for a later question. If a model is trained primarily on captions, it may underperform on tasks that require reading text, locating small objects, or answering unusual questions. BLIP-style bootstrapping addresses part of this issue by improving caption quality [34].
 
 ### 6.3 Connector Alignment
 
@@ -194,6 +198,8 @@ Connector alignment trains a module that maps visual features into the language 
 Visual instruction tuning uses multimodal conversations or question-answer pairs. LLaVA demonstrated the effectiveness of this approach for creating open visual assistants [8]. InstructBLIP refined instruction tuning in a BLIP-style architecture [9]. The training data may include human-written examples, synthetic examples generated by stronger models, or mixtures of task datasets reformatted as instructions.
 
 The strength of instruction tuning is behavioral alignment. It teaches the model to respond in a way users expect. The weakness is dependency on data quality. If training examples contain ungrounded claims, models can learn to hallucinate. If examples overrepresent certain domains, models may fail in underrepresented visual styles. If synthetic data is generated by a closed model, errors and biases may transfer into the open model.
+
+Parameter-efficient and feedback-based alignment methods also influence how open MLLMs are adapted. LoRA and QLoRA reduce the cost of fine-tuning large backbones by updating low-rank or quantized adaptation parameters rather than all weights [63] [64]. Human-feedback instruction following, developed first in text-only settings, remains relevant because multimodal assistants must learn when to answer, refuse, or express uncertainty [65]. Reasoning-oriented prompting and multimodal chain-of-thought studies further show why MLLM outputs should be evaluated for reasoning quality, not only final answer strings [66] [67].
 
 ### 6.5 Safety and Refusal Alignment
 
@@ -242,7 +248,7 @@ Figure 2. Timeline distribution of representative MLLM benchmarks.
 
 This survey intentionally does not provide a leaderboard. A valid leaderboard requires controlled execution, exact model versions, prompts, decoding parameters, datasets, and scoring scripts. Without these details, benchmark numbers can be misleading. Even numbers copied from source papers must be interpreted carefully because models may have different training data, evaluation preprocessing, and prompt formats.
 
-Qualitatively, the literature supports several defensible comparisons. Contrastive models such as CLIP are strong representation learners but are not full conversational MLLMs [3]. Flamingo and BLIP-2 demonstrate that frozen components and learned connectors can produce strong multimodal generation and few-shot adaptation [5] [6]. LLaVA and InstructBLIP show that instruction tuning is essential for assistant-like behavior [8] [9]. Qwen-VL, InternVL, and CogVLM represent later efforts to expand grounding, scale, and visual expertise [11] [40] [7]. Closed systems such as GPT-4V remain important external references but cannot be fully reproduced from public information [12].
+Qualitatively, the literature supports several defensible comparisons. Contrastive models such as CLIP are strong representation learners but are not full conversational MLLMs [3]. Flamingo and BLIP-2 demonstrate that frozen components and learned connectors can produce strong multimodal generation and few-shot adaptation [5] [6]. LLaVA and InstructBLIP show that instruction tuning is essential for assistant-like behavior [8] [9]. Qwen-VL, InternVL, and CogVLM represent later efforts to expand grounding, scale, and visual expertise [11] [45] [7]. Closed systems such as GPT-4V remain important external references but cannot be fully reproduced from public information [12].
 
 ### 7.7 Benchmark Design Risks
 
@@ -431,42 +437,92 @@ At the time this local package was prepared, the GitHub repository existed but w
 
 [22] Lu Pan, Bansal Hritik, Xia Tony, et al. MathVista: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts[J]. arXiv preprint arXiv:2310.02255, 2023.
 
-[23] Lu Jiasen, Batra Dhruv, Parikh Devi, et al. ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks[C]. Advances in Neural Information Processing Systems, 2019.
+[23] Yin Shukang, Fu Chaoyou, Zhao Sirui, et al. A Survey on Multimodal Large Language Models[J]. arXiv preprint arXiv:2306.13549, 2023.
 
-[24] Tan Hao, Bansal Mohit. LXMERT: Learning Cross-Modality Encoder Representations from Transformers[C]. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing, 2019.
+[24] Wu Jiayang, Gan Wensheng, Chen Zefeng, et al. Multimodal Large Language Models: A Survey[J]. arXiv preprint arXiv:2311.13165, 2023.
 
-[25] Chen Yen-Chun, Li Linjie, Yu Licheng, et al. UNITER: UNiversal Image-TExt Representation Learning[C]. European Conference on Computer Vision, 2020.
+[25] Caffagni Davide, Cocchi Federico, Barsellotti Luca, et al. The Revolution of Multimodal Large Language Models: A Survey[J]. arXiv preprint arXiv:2402.12451, 2024.
 
-[26] Li Xiujun, Yin Xi, Li Chunyuan, et al. Oscar: Object-Semantics Aligned Pre-training for Vision-Language Tasks[C]. European Conference on Computer Vision, 2020.
+[26] HITsz-TMG. Awesome Large Multimodal Reasoning Models. 2025.
 
-[27] Zhang Pengchuan, Li Xiujun, Hu Xiaowei, et al. VinVL: Revisiting Visual Representations in Vision-Language Models[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021.
+[27] Anderson Peter, He Xiaodong, Buehler Chris, et al. Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2018.
 
-[28] Wang Peng, Yang An, Men Rui, et al. OFA: Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework[C]. International Conference on Machine Learning, 2022.
+[28] Lu Jiasen, Batra Dhruv, Parikh Devi, et al. ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks[C]. Advances in Neural Information Processing Systems, 2019.
 
-[29] Li Junnan, Li Dongxu, Xiong Caiming, et al. BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation[C]. International Conference on Machine Learning, 2022.
+[29] Tan Hao, Bansal Mohit. LXMERT: Learning Cross-Modality Encoder Representations from Transformers[C]. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing, 2019.
 
-[30] Chen Xi, Wang Xiao, Changpinyo Soravit, et al. PaLI: A Jointly-Scaled Multilingual Language-Image Model[J]. arXiv preprint arXiv:2209.06794, 2022.
+[30] Chen Yen-Chun, Li Linjie, Yu Licheng, et al. UNITER: UNiversal Image-TExt Representation Learning[C]. European Conference on Computer Vision, 2020.
 
-[31] Driess Danny, Xia Fei, Sajjadi Mehdi S. M., et al. PaLM-E: An Embodied Multimodal Language Model[C]. International Conference on Machine Learning, 2023.
+[31] Li Xiujun, Yin Xi, Li Chunyuan, et al. Oscar: Object-Semantics Aligned Pre-training for Vision-Language Tasks[C]. European Conference on Computer Vision, 2020.
 
-[32] Huang Shaohan, Dong Li, Wang Wenhui, et al. Language Is Not All You Need: Aligning Perception with Language Models[J]. arXiv preprint arXiv:2302.14045, 2023.
+[32] Zhang Pengchuan, Li Xiujun, Hu Xiaowei, et al. VinVL: Revisiting Visual Representations in Vision-Language Models[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021.
 
-[33] Peng Zhiliang, Wang Wenhui, Dong Li, et al. Kosmos-2: Grounding Multimodal Large Language Models to the World[J]. arXiv preprint arXiv:2306.14824, 2023.
+[33] Wang Peng, Yang An, Men Rui, et al. OFA: Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework[C]. International Conference on Machine Learning, 2022.
 
-[34] Ye Qinghao, Xu Haiyang, Xu Guohai, et al. mPLUG-Owl: Modularization Empowers Large Language Models with Multimodality[J]. arXiv preprint arXiv:2304.14178, 2023.
+[34] Li Junnan, Li Dongxu, Xiong Caiming, et al. BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation[C]. International Conference on Machine Learning, 2022.
 
-[35] Chen Keqin, Zhang Zhao, Zeng Weili, et al. Shikra: Unleashing Multimodal LLM's Referential Dialogue Magic[J]. arXiv preprint arXiv:2306.15195, 2023.
+[35] Chen Xi, Wang Xiao, Changpinyo Soravit, et al. PaLI: A Jointly-Scaled Multilingual Language-Image Model[J]. arXiv preprint arXiv:2209.06794, 2022.
 
-[36] You Haoxuan, Zhang Haotian, Gan Zhe, et al. Ferret: Refer and Ground Anything Anywhere at Any Granularity[C]. International Conference on Learning Representations, 2024.
+[36] Driess Danny, Xia Fei, Sajjadi Mehdi S. M., et al. PaLM-E: An Embodied Multimodal Language Model[C]. International Conference on Machine Learning, 2023.
 
-[37] Lin Ji, Yin Hongxu, Ping Wei, et al. VILA: On Pre-training for Visual Language Models[J]. arXiv preprint arXiv:2312.07533, 2023.
+[37] Huang Shaohan, Dong Li, Wang Wenhui, et al. Language Is Not All You Need: Aligning Perception with Language Models[J]. arXiv preprint arXiv:2302.14045, 2023.
 
-[38] Lin Bin, Ye Yang, Zhu Bin, et al. Video-LLaVA: Learning United Visual Representation by Alignment Before Projection[C]. Conference on Empirical Methods in Natural Language Processing, 2024.
+[38] Peng Zhiliang, Wang Wenhui, Dong Li, et al. Kosmos-2: Grounding Multimodal Large Language Models to the World[J]. arXiv preprint arXiv:2306.14824, 2023.
 
-[39] Wu Chenfei, Yin Shengming, Qi Weizhen, et al. Visual ChatGPT: Talking, Drawing and Editing with Visual Foundation Models[J]. arXiv preprint arXiv:2303.04671, 2023.
+[39] Ye Qinghao, Xu Haiyang, Xu Guohai, et al. mPLUG-Owl: Modularization Empowers Large Language Models with Multimodality[J]. arXiv preprint arXiv:2304.14178, 2023.
 
-[40] Chen Zhe, Wu Jiannan, Wang Wenhai, et al. InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024.
+[40] Chen Keqin, Zhang Zhao, Zeng Weili, et al. Shikra: Unleashing Multimodal LLM's Referential Dialogue Magic[J]. arXiv preprint arXiv:2306.15195, 2023.
 
-[41] Singh Amanpreet, Natarajan Vivek, Shah Meet, et al. Towards VQA Models That Can Read[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2019.
+[41] You Haoxuan, Zhang Haotian, Gan Zhe, et al. Ferret: Refer and Ground Anything Anywhere at Any Granularity[C]. International Conference on Learning Representations, 2024.
 
-[42] Masry Ahmed, Long Do Xuan, Tan Jia Qing, et al. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning[C]. Findings of the Association for Computational Linguistics: ACL 2022, 2022.
+[42] Lin Ji, Yin Hongxu, Ping Wei, et al. VILA: On Pre-training for Visual Language Models[J]. arXiv preprint arXiv:2312.07533, 2023.
+
+[43] Lin Bin, Ye Yang, Zhu Bin, et al. Video-LLaVA: Learning United Visual Representation by Alignment Before Projection[C]. Conference on Empirical Methods in Natural Language Processing, 2024.
+
+[44] Wu Chenfei, Yin Shengming, Qi Weizhen, et al. Visual ChatGPT: Talking, Drawing and Editing with Visual Foundation Models[J]. arXiv preprint arXiv:2303.04671, 2023.
+
+[45] Chen Zhe, Wu Jiannan, Wang Wenhai, et al. InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024.
+
+[46] Achiam Josh, Adler Steven, Agarwal Sandhini, et al. GPT-4 Technical Report[J]. arXiv preprint arXiv:2303.08774, 2023.
+
+[47] Anil Rohan, Borgeaud Sebastian, Wu Yonghui, et al. Gemini: A Family of Highly Capable Multimodal Models[J]. arXiv preprint arXiv:2312.11805, 2023.
+
+[48] Awadalla Anas, Gao Irena, Gardner Josh, et al. OpenFlamingo: An Open-Source Framework for Training Large Autoregressive Vision-Language Models[J]. arXiv preprint arXiv:2308.01390, 2023.
+
+[49] Laurencon Hugo, Saulnier Lucile, Tronchon Loic, et al. Obelics: An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents[J]. arXiv preprint arXiv:2306.16527, 2023.
+
+[50] Girdhar Rohit, El-Nouby Alaaeldin, Liu Zhuang, et al. ImageBind: One Embedding Space To Bind Them All[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2023.
+
+[51] Wu Shengqiong, Fei Hao, Qu Leigang, et al. NExT-GPT: Any-to-Any Multimodal LLM[J]. arXiv preprint arXiv:2309.05519, 2023.
+
+[52] Li Yanwei, Wang Chengyao, Jia Jiaya. LLaMA-VID: An Image is Worth 2 Tokens in Large Language Models[J]. arXiv preprint arXiv:2311.17043, 2023.
+
+[53] Maaz Muhammad, Rasheed Hanoona, Khan Salman, et al. Video-ChatGPT: Towards Detailed Video Understanding via Large Vision and Language Models[J]. arXiv preprint arXiv:2306.05424, 2023.
+
+[54] Chen Chi, Du Yiyang, Fang Zheng, et al. Model Composition for Multimodal Large Language Models[C]. Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics, 2024.
+
+[55] Schwenk Dustin, Khandelwal Apoorv, Clark Christopher, et al. A-OKVQA: A Benchmark for Visual Question Answering Using World Knowledge[C]. European Conference on Computer Vision, 2022.
+
+[56] Johnson Justin, Hariharan Bharath, van der Maaten Laurens, et al. CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2017.
+
+[57] Singh Amanpreet, Natarajan Vivek, Shah Meet, et al. Towards VQA Models That Can Read[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2019.
+
+[58] Mathew Minesh, Karatzas Dimosthenis, Jawahar C. V. DocVQA: A Dataset for VQA on Document Images[C]. IEEE Winter Conference on Applications of Computer Vision, 2021.
+
+[59] Masry Ahmed, Long Do Xuan, Tan Jia Qing, et al. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning[C]. Findings of the Association for Computational Linguistics: ACL 2022, 2022.
+
+[60] Li Bohao, Wang Rui, Wang Guangzhi, et al. SEED-Bench: Benchmarking Multimodal LLMs with Generative Comprehension[J]. arXiv preprint arXiv:2307.16125, 2023.
+
+[61] Guan Tianrui, Liu Fuxiao, Wu Xiyang, et al. HallusionBench: An Advanced Diagnostic Suite for Entangled Language Hallucination and Visual Illusion in Large Vision-Language Models[J]. arXiv preprint arXiv:2310.14566, 2023.
+
+[62] Lin Peiqin, Lyu Chenyang, Luo Wenjiang, et al. CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks[J]. arXiv preprint arXiv:2604.19262, 2026.
+
+[63] Hu Edward J., Shen Yelong, Wallis Phillip, et al. LoRA: Low-Rank Adaptation of Large Language Models[C]. International Conference on Learning Representations, 2022.
+
+[64] Dettmers Tim, Pagnoni Artidoro, Holtzman Ari, et al. QLoRA: Efficient Finetuning of Quantized LLMs[C]. Advances in Neural Information Processing Systems, 2024.
+
+[65] Ouyang Long, Wu Jeffrey, Jiang Xu, et al. Training Language Models to Follow Instructions with Human Feedback[C]. Advances in Neural Information Processing Systems, 2022.
+
+[66] Wei Jason, Wang Xuezhi, Schuurmans Dale, et al. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models[C]. Advances in Neural Information Processing Systems, 2022.
+
+[67] Zhang Zhuosheng, Zhang Aston, Li Mu, et al. Multimodal Chain-of-Thought Reasoning in Language Models[J]. arXiv preprint arXiv:2302.00923, 2023.

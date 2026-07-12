@@ -179,7 +179,7 @@ def slide_validate_refs(prs: Presentation) -> None:
             "Uses regular expressions to find citation keys like [@radford2021clip].",
             "Uses another regular expression to extract BibTeX keys from references.bib.",
             "Fails with exit code 1 if a cited key is missing.",
-            "Current check: 42 citation keys and 42 bibliography entries.",
+            "Current check: 67 citation keys and 67 bibliography entries.",
         ],
         w=6.0,
     )
@@ -362,7 +362,7 @@ def slide_commands(prs: Presentation) -> None:
         w=11.7,
         h=4.6,
     )
-    add_bullets(slide, ["Expected validation result: 42 citation keys, 42 bibliography entries, reference validation passed."], x=0.85, y=6.0, w=11.7, h=0.55, font_size=14)
+    add_bullets(slide, ["Expected validation result: 67 citation keys, 67 bibliography entries, reference validation passed."], x=0.85, y=6.0, w=11.7, h=0.55, font_size=14)
     add_footer(slide)
 
 
@@ -412,4 +412,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

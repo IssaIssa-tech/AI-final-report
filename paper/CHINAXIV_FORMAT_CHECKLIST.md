@@ -4,7 +4,7 @@ Prepared files:
 
 - `paper_chinaxiv.md`: source manuscript with numbered citations and numbered references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_final_with_bottom_line_newurl.pdf`: final PDF submission document with footer rule and corrected GitHub URL
+- `paper_chinaxiv_final_with_bottom_line_newurl_v2.pdf`: final PDF submission document with footer rule, corrected GitHub URL, and expanded references
 - `references.bib`: source bibliography
 - `figures/model_timeline.png`: model timeline chart
 - `figures/benchmark_timeline.png`: benchmark timeline chart
@@ -23,7 +23,7 @@ Formatting applied:
 - Two inserted taxonomy tables
 - Two inserted academic charts
 - Numbered in-text citations, e.g. `[1]`
-- 42 numbered references formatted in GB/T 7714-like style
+- 67 numbered references formatted in GB/T 7714-like style
 - Code Availability section with the populated GitHub repository URL
 - Final verification checklist
 
