@@ -12,7 +12,11 @@ paper/paper_chinaxiv_final.pdf
 paper/paper_chinaxiv_final_with_bottom_line.pdf
 paper/paper_chinaxiv_final_with_bottom_line_newurl.pdf
 paper/paper_chinaxiv_final_with_bottom_line_newurl_v2.pdf
+paper/paper_chinaxiv_course_guideline_draft.pdf
+paper/paper_chinaxiv_professional_revision_v3.pdf
 chinaxiv-*.pdf
+Lesson*.pdf
+Lab*.pdf
 docs/*.png
 !checkpoints/.gitkeep
 !logs/.gitkeep

@@ -92,7 +92,7 @@ The ChinaXiv-style submission files are in `paper/`:
 
 - `paper_chinaxiv.md`: formatted source manuscript with numbered citations and references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_professional_revision_v3.pdf`: final professionally revised PDF submission document
+- `paper_chinaxiv_course_guideline_final_v4.pdf`: final course-guideline-aligned PDF submission document
 - `CHINAXIV_FORMAT_CHECKLIST.md`: formatting and integrity checklist
 - `figures/model_timeline.png` and `figures/benchmark_timeline.png`: reproducible academic charts
 
@@ -100,7 +100,7 @@ The layout comparison against the provided ChinaXiv sample is in `docs/chinaxiv_
 
 The working draft remains available as `paper/paper.md`.
 
-The paper currently has a 222-word abstract, 67 numbered references, 14 Author's Analysis subsections, 2 practical case studies, and professional comparison tables/figures.
+The paper currently has a 222-word abstract, 68 numbered references, 15 Author's Analysis subsections, 2 practical case studies, 3 professional tables, 7 generated figures, and a six-chapter structure aligned with the Advanced Artificial Intelligence final-report guideline.
 
 ## Code Explanation Presentation
 

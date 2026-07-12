@@ -1,7 +1,10 @@
 # A Comprehensive Survey of Multimodal Large Language Models: Architectures, Training Paradigms, Benchmark Evaluation, and Future Directions
 
 Authors: ISSA ISSA RASHID  
+Student ID: 25SF51115  
 Affiliation: School of Computer Science and Technology, Harbin Institute of Technology, Shenzhen, China  
+Supervisor / Course Instructor: Dr. Kuo-Kun Tseng  
+Laboratory: Advanced Artificial Intelligence Course Laboratory  
 Corresponding author: ISSA ISSA RASHID, 25sf51115@stu.hit.edu.cn
 
 ## Abstract
@@ -10,7 +13,7 @@ Multimodal large language models (MLLMs) extend the reasoning, instruction-follo
 
 ## Keywords
 
-multimodal large language models, vision-language learning, instruction tuning, benchmark evaluation, hallucination, reproducibility
+Multimodal Intelligence, Large Language Models, Cross-Modal Fusion, Hallucination, Agent Intelligence
 
 ## 1. Introduction
 
@@ -28,29 +31,69 @@ The contributions of this survey are fourfold. First, it provides a structured t
 
 This survey argues that the main research challenge in MLLMs is not simply adding images to language models. The deeper problem is how to preserve visual evidence while benefiting from the abstraction and reasoning capacity of language models. Existing evidence indicates that many impressive demonstrations still depend on fragile interactions between visual encoders, connectors, prompts, and language priors. For this reason, the paper treats architecture, grounding, evaluation, and reproducibility as one connected problem rather than as separate topics.
 
-## 2. Related Work
+## 2. Theoretical Foundation: Eight Core AI Intelligence Modules
+
+The Advanced Artificial Intelligence course is organized around eight connected intelligence modules: structural intelligence, visual intelligence, language intelligence, generative intelligence, graph intelligence, multimodal intelligence, reinforcement intelligence, and agent intelligence [27]. This survey focuses on multimodal large language models, but MLLMs depend on concepts from all eight modules. A course-aligned survey must therefore explain how MLLMs are positioned within the broader advanced AI system.
+
+### 2.1 Structural Intelligence
+
+Structural intelligence concerns the basic neural architectures that support modern AI systems, including neurons, activation functions, multilayer perceptrons, convolutional networks, recurrent structures, backpropagation, matrix multiplication, and optimization [27]. For MLLMs, structural intelligence provides the computational substrate: visual encoders, projection layers, attention blocks, and language backbones are all built from these general neural-network principles.
+
+### 2.2 Visual Intelligence
+
+Visual intelligence studies how machines perceive images and videos through CNNs, object detection, semantic segmentation, and vision transformers [27]. MLLMs inherit visual understanding from this module. A weak visual encoder limits the entire multimodal system, especially on small objects, spatial relations, OCR, diagrams, and document images. This is why MLLM research cannot be separated from progress in visual representation learning.
+
+### 2.3 Language Intelligence
+
+Language intelligence covers sequence modeling, self-attention, Transformer architecture, and large language models [1] [2] [27]. MLLMs rely on language intelligence for instruction following, reasoning, dialogue, and long-form generation. However, language intelligence also introduces risk: strong textual priors can cause fluent but visually unsupported answers.
+
+### 2.4 Generative Intelligence
+
+Generative intelligence includes VAE, GAN, diffusion models, autoregressive models, and hybrid generation paradigms [27]. MLLMs use generative modeling to produce natural-language answers and may also connect to image, video, or audio generators. Generative ability is useful only when it remains grounded in the input evidence; otherwise, it can amplify hallucination.
+
+### 2.5 Graph Intelligence
+
+Graph intelligence studies non-Euclidean data, graph convolutional networks, graph attention networks, and graph representation learning [27]. Although many MLLMs process images as token sequences, graph intelligence remains relevant for scene graphs, knowledge graphs, document layouts, relation extraction, and structured reasoning over entities and attributes.
+
+### 2.6 Multimodal Intelligence
+
+Multimodal intelligence is the central module of this survey. It studies how systems process and fuse text, images, audio, video, and other modalities [27]. MLLMs are a frontier form of multimodal intelligence because they connect perception modules to language models and attempt to support open-ended cross-modal reasoning.
+
+### 2.7 Reinforcement Intelligence
+
+Reinforcement intelligence studies agents that learn through interaction, reward, and policy optimization, including DQN, PPO, multi-agent systems, and reinforcement fine-tuning [27]. MLLMs connect to this module through reinforcement learning from human feedback, safety alignment, tool-use policies, and future embodied or interactive multimodal agents.
+
+### 2.8 Agent Intelligence
+
+Agent intelligence studies LLM-based systems that plan, use tools, call external resources, maintain memory, and execute workflows [27]. Modern MLLMs increasingly act as multimodal agents: they may inspect images, crop regions, read documents, query retrieval systems, call OCR tools, or control robots. This makes agent intelligence a natural extension of multimodal intelligence.
+
+### Author's Analysis
+
+The eight-module framework shows that MLLMs are not an isolated research topic. They are an integration point where visual intelligence supplies perception, language intelligence supplies reasoning, generative intelligence supplies output generation, structural intelligence supplies model architecture, graph intelligence supplies relational structure, reinforcement intelligence supplies alignment and interaction, and agent intelligence supplies workflow execution. This survey therefore treats MLLMs as a cross-module system rather than a single-model category.
+
+## 3. In-Depth Investigation of the Target Direction: Multimodal Large Language Models
 
 Research on MLLMs builds on several earlier lines of work: transformer sequence modeling, vision-language representation learning, visual question answering, image captioning, and instruction-following language models. The transformer architecture introduced self-attention as a scalable mechanism for sequence modeling [1]. Large language models later demonstrated that scaling and broad pretraining can produce strong few-shot behavior across tasks [2]. These developments supplied the language backbone used by many modern MLLMs.
 
-Vision-language representation learning provided the second foundation. Earlier attention-based visual question answering and captioning systems highlighted the value of bottom-up visual features before the current MLLM wave [27]. Transformer-based systems such as ViLBERT, LXMERT, UNITER, Oscar, VinVL, and OFA then studied cross-modal pretraining in more unified settings [28] [29] [30] [31] [32] [33]. CLIP trained image and text encoders with a contrastive objective over image-caption pairs, producing transferable open-vocabulary visual representations [3]. ALIGN scaled a similar idea with noisy image-text supervision and showed that large web-scale data could support robust cross-modal retrieval and classification [4]. These models are not full MLLMs in the current sense because they do not perform open-ended multimodal dialogue through a generative language model. Nevertheless, they established a practical strategy: align visual and textual representations using paired data, then reuse the learned representation for downstream tasks.
+Vision-language representation learning provided the second foundation. Earlier attention-based visual question answering and captioning systems highlighted the value of bottom-up visual features before the current MLLM wave [28]. Transformer-based systems such as ViLBERT, LXMERT, UNITER, Oscar, VinVL, and OFA then studied cross-modal pretraining in more unified settings [29] [30] [31] [32] [33] [34]. CLIP trained image and text encoders with a contrastive objective over image-caption pairs, producing transferable open-vocabulary visual representations [3]. ALIGN scaled a similar idea with noisy image-text supervision and showed that large web-scale data could support robust cross-modal retrieval and classification [4]. These models are not full MLLMs in the current sense because they do not perform open-ended multimodal dialogue through a generative language model. Nevertheless, they established a practical strategy: align visual and textual representations using paired data, then reuse the learned representation for downstream tasks.
 
-A second group of works moved from retrieval-style representation learning toward generative vision-language models. BLIP unified understanding and generation with bootstrapped captions and filtering [34]. Flamingo connected strong visual encoders to frozen language models with cross-attention layers and demonstrated few-shot learning over interleaved image, video, and text inputs [5]. BLIP-2 introduced a Querying Transformer, commonly called Q-Former, to bridge frozen image encoders and frozen language models efficiently [6]. These models are important because they show that full end-to-end retraining is not the only route to multimodal competence. Careful adapter or connector design can exploit powerful unimodal components while reducing training cost.
+A second group of works moved from retrieval-style representation learning toward generative vision-language models. BLIP unified understanding and generation with bootstrapped captions and filtering [35]. Flamingo connected strong visual encoders to frozen language models with cross-attention layers and demonstrated few-shot learning over interleaved image, video, and text inputs [5]. BLIP-2 introduced a Querying Transformer, commonly called Q-Former, to bridge frozen image encoders and frozen language models efficiently [6]. These models are important because they show that full end-to-end retraining is not the only route to multimodal competence. Careful adapter or connector design can exploit powerful unimodal components while reducing training cost.
 
 Instruction tuning then became central. InstructBLIP adapted the BLIP-2 design toward instruction following [9]. LLaVA showed that visual instruction data could turn a vision encoder and a language model into an open multimodal assistant [8]. MiniGPT-4 provided another compact alignment recipe using a frozen visual encoder and a Vicuna-style language model [10]. These works changed the evaluation focus from task-specific metrics to interactive behavior: the model must answer questions, describe scenes, reason over diagrams, and follow user intent.
 
-Recent systems have expanded the design space. PaLI and PaLM-E illustrate multilingual and embodied multimodal scaling [35] [36]. Kosmos-1 and Kosmos-2 emphasize aligning perception with language and grounding multimodal language models to the world [37] [38]. Qwen-VL emphasizes abilities such as text reading and localization in addition to general visual dialogue [11]. mPLUG-Owl, Shikra, Ferret, VILA, Video-LLaVA, and Visual ChatGPT represent additional directions in modularization, referential dialogue, grounding, pretraining, video alignment, and tool-assisted visual interaction [39] [40] [41] [42] [43] [44]. InternVL studies scaling of vision foundation models and alignment for generic visual-linguistic tasks [45]. CogVLM uses a visual expert approach to integrate visual capability into pretrained language models while preserving language competence [7]. GPT-4V represents a closed frontier system described through a system card rather than full open model weights or training details [12]. The contrast between open and closed systems is now a major reproducibility issue: closed systems can be evaluated externally, but their training data, architecture, and alignment processes cannot be independently inspected.
+Recent systems have expanded the design space. PaLI and PaLM-E illustrate multilingual and embodied multimodal scaling [36] [37]. Kosmos-1 and Kosmos-2 emphasize aligning perception with language and grounding multimodal language models to the world [38] [39]. Qwen-VL emphasizes abilities such as text reading and localization in addition to general visual dialogue [11]. mPLUG-Owl, Shikra, Ferret, VILA, Video-LLaVA, and Visual ChatGPT represent additional directions in modularization, referential dialogue, grounding, pretraining, video alignment, and tool-assisted visual interaction [40] [41] [42] [43] [44] [45]. InternVL studies scaling of vision foundation models and alignment for generic visual-linguistic tasks [46]. CogVLM uses a visual expert approach to integrate visual capability into pretrained language models while preserving language competence [7]. GPT-4V represents a closed frontier system described through a system card rather than full open model weights or training details [12]. The contrast between open and closed systems is now a major reproducibility issue: closed systems can be evaluated externally, but their training data, architecture, and alignment processes cannot be independently inspected.
 
-Additional recent work broadens the field beyond still-image chat. GPT-4 and Gemini show the role of frontier-scale multimodal or multimodal-adjacent systems [46] [47]. OpenFlamingo and IDEFICS/OBELICS emphasize reproducible or openly described training infrastructure and interleaved image-text corpora [48] [49]. ImageBind explores shared embeddings across multiple modalities [50], while NExT-GPT, LLaMA-VID, and Video-ChatGPT extend the discussion toward any-to-any multimodality and video understanding [51] [52] [53]. Model composition research further asks whether separately trained multimodal experts can be combined rather than retrained from scratch [54].
+Additional recent work broadens the field beyond still-image chat. GPT-4 and Gemini show the role of frontier-scale multimodal or multimodal-adjacent systems [47] [48]. OpenFlamingo and IDEFICS/OBELICS emphasize reproducible or openly described training infrastructure and interleaved image-text corpora [49] [50]. ImageBind explores shared embeddings across multiple modalities [51], while NExT-GPT, LLaMA-VID, and Video-ChatGPT extend the discussion toward any-to-any multimodality and video understanding [52] [53] [54]. Model composition research further asks whether separately trained multimodal experts can be combined rather than retrained from scratch [55].
 
-Evaluation research has also evolved. Early visual question answering benchmarks such as VQA [13], GQA [14], OK-VQA [15], A-OKVQA, and CLEVR tested specific combinations of perception, language, compositional reasoning, and external knowledge [55] [56]. TextVQA, DocVQA, and ChartQA extended evaluation toward visual text reading, document images, and chart reasoning [57] [58] [59]. ScienceQA introduced science-question reasoning with multimodal explanations [16]. Modern MLLM benchmarks such as MME, MMBench, MM-Vet, MMMU, SEED-Bench, and HallusionBench attempt to measure broader capability dimensions, generative comprehension, and hallucination or visual-illusion behavior [17] [18] [19] [20] [60] [61]. POPE focuses specifically on object hallucination [21], while MathVista evaluates mathematical reasoning in visual contexts [22]. This benchmark expansion reflects a key point: no single test can characterize an MLLM.
+Evaluation research has also evolved. Early visual question answering benchmarks such as VQA [13], GQA [14], OK-VQA [15], A-OKVQA, and CLEVR tested specific combinations of perception, language, compositional reasoning, and external knowledge [56] [57]. TextVQA, DocVQA, and ChartQA extended evaluation toward visual text reading, document images, and chart reasoning [58] [59] [60]. ScienceQA introduced science-question reasoning with multimodal explanations [16]. Modern MLLM benchmarks such as MME, MMBench, MM-Vet, MMMU, SEED-Bench, and HallusionBench attempt to measure broader capability dimensions, generative comprehension, and hallucination or visual-illusion behavior [17] [18] [19] [20] [61] [62]. POPE focuses specifically on object hallucination [21], while MathVista evaluates mathematical reasoning in visual contexts [22]. This benchmark expansion reflects a key point: no single test can characterize an MLLM.
 
-This survey also includes a HITSZ-linked grounded evaluation perspective. CulturALL includes Wenjiang Luo among the authors and lists Baotian Hu with Harbin Institute of Technology, Shenzhen affiliation; it benchmarks multilingual and multicultural competence on grounded tasks [62]. This is relevant because MLLM evaluation is increasingly concerned not only with object recognition and English visual question answering, but also with cultural grounding, multilingual robustness, and task settings where visual or contextual evidence must be interpreted carefully.
+This survey also includes a HITSZ-linked grounded evaluation perspective. CulturALL includes Wenjiang Luo among the authors and lists Baotian Hu with Harbin Institute of Technology, Shenzhen affiliation; it benchmarks multilingual and multicultural competence on grounded tasks [63]. This is relevant because MLLM evaluation is increasingly concerned not only with object recognition and English visual question answering, but also with cultural grounding, multilingual robustness, and task settings where visual or contextual evidence must be interpreted carefully.
 
 ### Author's Analysis
 
 The related literature suggests a transition from task-specific vision-language systems to general multimodal interfaces. However, the transition is incomplete. Many open systems inherit strong image encoders and language models, but their connectors and training data often determine whether the final system is genuinely grounded. The literature also shows a reproducibility divide: open models support inspection and ablation, while frontier closed systems influence expectations but cannot be scientifically reproduced from public information alone.
 
-## 3. Theoretical Foundation
+### 3.1 Technical Foundation of Multimodal Large Language Models
 
 An MLLM can be viewed as a conditional sequence model that generates text given multimodal context. Let an image or set of images be denoted by \(x_v\), a textual prompt by \(x_t\), and the target textual response by \(y = (y_1, ..., y_T)\). A generative MLLM models
 
@@ -76,9 +119,9 @@ Figure 1. General MLLM architecture and information-flow bottleneck.
 
 ![Figure 1](figures/architecture_diagram.png)
 
-## 4. Methodology
+### 3.2 Survey Methodology
 
-### 4.1 Problem Definition
+### 3.2.1 Problem Definition
 
 This paper studies MLLMs as systems that accept one or more visual inputs and natural-language prompts, then produce natural-language outputs that are intended to be grounded in the visual input. The survey asks four research questions:
 
@@ -89,13 +132,13 @@ This paper studies MLLMs as systems that accept one or more visual inputs and na
 
 The paper is a literature survey and taxonomy study. It does not train a model, fine-tune a model, evaluate a benchmark, or report new scores. This choice is deliberate: the available local project does not include model weights, benchmark datasets, compute logs, or executed experiment outputs. Reporting new numbers without execution would violate reproducibility requirements.
 
-### 4.2 Literature Selection
+### 3.2.2 Literature Selection
 
 The paper prioritizes real references from major venues and widely cited technical reports or arXiv preprints that shaped the MLLM field. The selected works cover foundational transformers, large language model scaling, contrastive vision-language learning, generative vision-language pretraining, instruction-tuned MLLMs, closed frontier multimodal systems, and multimodal benchmarks. The bibliography is stored in `paper/references.bib`, and citation keys in the manuscript can be checked with `scripts/validate_references.py`.
 
 The selection is not exhaustive. MLLMs are a rapidly moving field, and many new models appear as technical reports before peer review. For that reason, this survey emphasizes stable conceptual categories rather than a complete leaderboard. Future extensions should add references only after verifying bibliographic details and should distinguish peer-reviewed papers from preprints and system cards.
 
-### 4.3 Taxonomy Construction
+### 3.2.3 Taxonomy Construction
 
 Two taxonomy tables are included. The model taxonomy records representative systems, publication year, architecture pattern, training or alignment paradigm, and notable role. The benchmark taxonomy records benchmark year, primary focus, and typical use in MLLM evaluation. These tables are stored as CSV files in `paper/tables/` and can be regenerated as Markdown tables by running:
 
@@ -105,7 +148,7 @@ python scripts/generate_tables.py
 
 This design makes the survey easier to audit. Instead of manually editing tables in the paper, future work can update structured CSV files and regenerate consistent output.
 
-### 4.4 Implementation Details
+### 3.2.4 Implementation Details
 
 Because this is a survey paper, there are no model-training hyperparameters such as optimizer, learning rate, batch size, epochs, or weight decay. If future original experiments are added, those fields must be specified exactly. For the current reproducibility package, the implementation details are:
 
@@ -120,69 +163,43 @@ Because this is a survey paper, there are no model-training hyperparameters such
 
 The methodology is intentionally conservative. It does not attempt to produce a leaderboard because no models were executed under controlled conditions. This is a strength rather than a weakness for a survey paper: it prevents unsupported empirical claims and focuses the contribution on organization, comparison, and reproducibility. The main limitation of the method is that qualitative comparison depends on the quality and representativeness of selected literature, so the bibliography must remain transparent and updateable.
 
-## 5. Architecture Taxonomy
+## 4. Comparative Analysis and Frontier Research Progress
 
-### 5.1 Contrastive Representation Models
+### 4.1 Architecture Taxonomy: Contrastive Representation Models
 
 Contrastive vision-language models learn aligned image and text spaces. CLIP is the most influential example [3]. It trains image and text encoders so that matching image-caption pairs have high similarity and mismatched pairs have low similarity. This objective enables zero-shot image classification by comparing an image embedding to text prompts representing class names. ALIGN follows a related strategy at larger noisy-data scale [4].
 
 The strength of contrastive models is transferability. They produce visual representations that can support classification, retrieval, and downstream multimodal systems. Their weakness is generative limitation. A dual encoder does not naturally produce a paragraph-length answer, a dialogue response, or a step-by-step explanation. For that reason, contrastive models often serve as components inside broader MLLMs rather than complete assistants.
 
-### 5.2 Generative Vision-Language Pretraining
+### 4.2 Architecture Taxonomy: Generative Vision-Language Pretraining
 
-BLIP introduced bootstrapping methods for unified vision-language understanding and generation [34]. Its core insight is that noisy web captions can be improved through caption generation and filtering, producing better supervision for downstream learning. This line of work bridges the gap between static representation learning and text generation.
+BLIP introduced bootstrapping methods for unified vision-language understanding and generation [35]. Its core insight is that noisy web captions can be improved through caption generation and filtering, producing better supervision for downstream learning. This line of work bridges the gap between static representation learning and text generation.
 
 Flamingo is a major step toward general-purpose multimodal generation [5]. It connects visual inputs to a language model with gated cross-attention and supports interleaved image/video and text inputs. The model's few-shot framing is important because it treats visual tasks as promptable problems rather than fixed-output classifiers. However, Flamingo is not fully open in the sense of public weights and training data, which limits independent reproduction.
 
-### 5.3 Frozen-Backbone Connector Models
+### 4.3 Architecture Taxonomy: Frozen-Backbone Connector Models
 
 Frozen-backbone designs reduce training cost by keeping strong unimodal components fixed. BLIP-2 is central in this category [6]. It uses a Q-Former to query visual features and connect them to a frozen language model. This approach recognizes that high-quality image encoders and language models already contain substantial knowledge; the challenge is learning an efficient bridge between them.
 
 The advantage is efficiency and modularity. Researchers can update the visual encoder, connector, or language model independently. The disadvantage is that connector capacity becomes a bottleneck. If the connector cannot preserve fine-grained visual details, the language model may answer from priors rather than evidence. This is particularly problematic for OCR, counting, small objects, spatial relations, and chart interpretation.
 
-### 5.4 Instruction-Tuned Open MLLMs
+### 4.4 Architecture Taxonomy: Instruction-Tuned Open MLLMs
 
 Instruction tuning adapts MLLMs to interactive user behavior. LLaVA is a representative open system that combines a vision encoder, projection layer, language model, and visual instruction data [8]. MiniGPT-4 follows a related goal of aligning a visual encoder with a capable language model through a compact training recipe [10]. InstructBLIP extends BLIP-2 toward general-purpose instruction following [9].
 
 The main benefit is usability. Users can ask natural questions about images and receive natural-language answers. The main risk is superficial fluency. A model may learn the style of helpful answers without robust grounding. Instruction tuning therefore requires careful data construction, visual grounding checks, and hallucination evaluation.
 
-### 5.5 Expanded Capability Models
+### 4.5 Architecture Taxonomy: Expanded Capability Models
 
-Qwen-VL extends the open MLLM landscape with attention to localization, text reading, and broader multimodal tasks [11]. InternVL studies scale in vision foundation models and alignment for generic vision-language tasks [45]. CogVLM introduces a visual expert design to add visual capability while preserving language ability [7]. These systems show that MLLM architecture is not converging to one simple pattern. Instead, the field is testing several hypotheses about how to best preserve both visual detail and language competence.
+Qwen-VL extends the open MLLM landscape with attention to localization, text reading, and broader multimodal tasks [11]. InternVL studies scale in vision foundation models and alignment for generic vision-language tasks [46]. CogVLM introduces a visual expert design to add visual capability while preserving language ability [7]. These systems show that MLLM architecture is not converging to one simple pattern. Instead, the field is testing several hypotheses about how to best preserve both visual detail and language competence.
 
 Closed frontier systems such as GPT-4V also influence the field [12]. They provide evidence that high-capability multimodal assistants are possible, but their closed nature creates evaluation and reproducibility limits. Researchers can test inputs and outputs, but they cannot inspect training data, architecture, alignment methods, or internal error causes. This makes open systems essential for scientific analysis even when closed systems may perform strongly.
 
-### 5.6 Visual Encoders and Feature Granularity
+### 4.6 Cross-Cutting Architecture Trade-Offs
 
-The visual encoder determines what information is available to the language model before any connector or reasoning step occurs. Many systems reuse pretrained vision transformers or CLIP-like encoders because they provide strong semantic features. This choice is practical, but it can bias the model toward global image semantics. A global representation may capture that an image contains a classroom, laboratory, or road scene, but it may not preserve the exact small text, object count, or spatial relation needed to answer a specific question. For MLLMs, this means encoder quality must be judged not only by classification or retrieval transfer but also by fine-grained evidence preservation.
+Across model families, the central architecture problem is evidence preservation. Visual encoders must retain fine-grained information for OCR, spatial relations, charts, diagrams, and counting. Connectors then decide how much of that evidence reaches the language model. A linear projection is efficient but may lose detail; Q-Former-style query modules are selective but can discard unexpected evidence; cross-attention is expressive but more expensive; visual-expert modules improve specialization but increase complexity.
 
-Feature granularity matters in at least four cases. First, OCR-heavy tasks require the model to preserve character-level or word-level information. If the visual encoder was not optimized for text recognition, the language model may guess plausible text from context. Second, chart and diagram tasks require the model to preserve lines, axes, labels, legends, and relative positions. A semantically strong encoder can still fail if it compresses the image into object categories. Third, counting tasks require object individuation rather than only category recognition. Fourth, spatial reasoning requires relational structure: left/right, above/below, containment, occlusion, and relative size. These demands explain why later systems increasingly emphasize high-resolution inputs, tiling strategies, localization data, and visual grounding.
-
-There is also a tension between input resolution and compute. Increasing image resolution can preserve more information, but it increases the number of visual tokens and the cost of attention. Some systems crop, tile, or select regions; others compress visual features into learned query tokens. Each approach changes what evidence reaches the language model. A reproducible report should therefore specify image resolution, preprocessing, cropping, resizing, patch size, and visual token count when experiments are performed. Without these details, two evaluations of the same model family may not be comparable.
-
-### 5.7 Connectors as Information Bottlenecks
-
-The connector is often the least visible but most important part of an MLLM. It converts visual features into a form that the language model can consume. A simple projection layer is easy to train and deploy, but it may force visual information through a narrow channel. A Q-Former or cross-attention module is more expressive, but it introduces additional parameters, training stages, and design choices. A visual expert module may preserve more visual reasoning capacity, but it can complicate integration with the language backbone.
-
-From an information-flow perspective, the connector must solve three problems. It must align feature distributions so that visual embeddings are meaningful to the language model. It must select or preserve visual details relevant to the instruction. It must do this without damaging the language model's prior abilities. This last point is important because multimodal fine-tuning can cause regressions in text-only tasks if the language model is updated aggressively on narrow visual data. Frozen-backbone approaches reduce that risk, but they rely heavily on connector quality.
-
-Connectors also influence interpretability. If the connector emits a small number of learned query tokens, it can be difficult to determine which image regions influenced the answer. If the model uses cross-attention over many visual tokens, attention maps may provide partial diagnostic information, although attention is not a complete explanation. If the model uses external tools for OCR or detection, the reasoning chain may be more auditable. Future MLLM research should therefore report connector structure with enough detail to support both reproduction and error analysis.
-
-### 5.8 Language Backbones and Multimodal Transfer
-
-The language backbone supplies linguistic fluency, world knowledge, reasoning patterns, and instruction-following behavior. It also supplies biases. When visual evidence is ambiguous, a strong language model may complete the answer from textual priors. This can be useful when a task requires commonsense inference, but it is dangerous when the model must strictly report visible content. For example, a model may infer that a person in a laboratory is wearing protective goggles even if the goggles are not visible. The problem is not only visual weakness; it is the interaction between visual uncertainty and language-model confidence.
-
-Language backbone choice affects multilingual behavior, domain knowledge, safety behavior, context length, and reasoning style. A model trained primarily on English data may underperform on multilingual OCR or non-English visual instructions. A model with strong code or math training may better interpret diagrams and equations, but only if the visual connector provides accurate symbols. A model with stronger safety tuning may refuse some sensitive visual questions, but may also over-refuse benign tasks. These differences mean that architecture comparisons should specify the language model, version, parameter scale, tokenizer, context length, and fine-tuning recipe.
-
-MLLMs also raise the question of whether reasoning should happen entirely inside the language model. For many tasks, external tools may be more reliable. OCR engines, object detectors, mathematical solvers, chart parsers, and retrieval systems can provide structured evidence. An MLLM can then reason over this evidence. This tool-augmented direction may improve reliability, but it changes the system from a single model to a pipeline. Reproducibility then requires documenting every component, not only the neural model.
-
-### 5.9 Open and Closed Model Trade-offs
-
-Open MLLMs support scientific inspection. Researchers can examine architecture, run ablations, test prompts, evaluate datasets, and study failure cases. Open weights also allow domain adaptation and deployment in controlled environments. However, open models may be constrained by compute, data access, and safety resources. Their training data may be less diverse or less carefully filtered than proprietary systems.
-
-Closed MLLMs can benefit from larger training runs, private data pipelines, and extensive safety work. They may set strong capability baselines for public comparison. However, closed systems create uncertainty. If a closed model performs well on a benchmark, researchers cannot easily determine whether the result comes from architecture, data scale, instruction tuning, benchmark contamination, or post-training alignment. System cards and technical reports help, but they do not replace reproducible methods. This survey therefore treats closed systems as important empirical references but not as fully reproducible scientific artifacts.
-
-The open-closed distinction also affects education. For a course report, an open reproducible package is preferable because the instructor and readers can inspect the work. If the paper cites a closed system, it should clearly state what is known and unknown. Claims about closed models should be limited to documented behavior, official reports, or independently executed evaluations.
+The language backbone supplies fluency, world knowledge, and reasoning, but it also introduces priors that can override weak visual evidence. This is why open and closed systems must be evaluated differently. Open models support inspection, ablation, and reproducible error analysis. Closed models may provide strong capability baselines, but their architecture, data, and alignment procedures cannot be independently verified. For a course survey, open reproducible systems are therefore more scientifically useful even when closed systems are practically influential.
 
 ### Author's Analysis
 
@@ -190,20 +207,20 @@ Architecture design in MLLMs is a sequence of trade-offs. A simple projection co
 
 Table 1. Comprehensive comparison of representative MLLMs.
 
-| Model | Year | Vision Encoder | LLM Backbone | Connector | Open Source | Major Strength | Major Weakness |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| CLIP | 2021 | ResNet or Vision Transformer | Text encoder | Contrastive shared embedding | Yes | Strong open-vocabulary image-text alignment | Not a generative conversational MLLM |
-| Flamingo | 2022 | Perceiver-style visual resampler | Chinchilla-family language model | Gated cross-attention | No | Strong few-shot interleaved image/video-text learning | Closed weights and limited reproducibility |
-| BLIP-2 | 2023 | Frozen image encoder | Frozen LLM | Q-Former | Yes | Efficient bridge between vision encoders and LLMs | Connector may compress away fine visual detail |
-| InstructBLIP | 2023 | Frozen image encoder | Vicuna or FlanT5-style LLM | Q-Former with instruction tuning | Yes | Better instruction following than BLIP-2 | Still sensitive to instruction-data quality |
-| LLaVA | 2023 | CLIP ViT | Vicuna-style LLM | Linear projection | Yes | Simple and influential open visual instruction tuning baseline | Can hallucinate when visual grounding is weak |
-| MiniGPT-4 | 2024 | Vision Transformer with Q-Former | Vicuna-style LLM | Linear projection after Q-Former | Yes | Compact alignment recipe for image dialogue | Limited fine-grained grounding and OCR reliability |
-| Qwen-VL | 2023 | Vision-language encoder | Qwen language model | Multimodal adapter | Partly | Good OCR localization and general visual dialogue | Training details and data scale are difficult to fully reproduce |
-| InternVL | 2024 | Scaled vision foundation model | LLM backbone | Vision-language alignment module | Yes | Strong generic visual-linguistic capability | Large-scale training makes reproduction costly |
-| CogVLM | 2024 | Visual expert module | Pretrained language model | Visual expert integration | Yes | Preserves language ability while adding visual expertise | Architecture is more complex than projection-based models |
-| GPT-4V | 2023 | Not publicly disclosed | Not publicly disclosed | Not publicly disclosed | No | High-capability frontier multimodal assistant | Closed architecture data and training process |
-| Gemini | 2023 | Not fully public | Not fully public | Native multimodal system design | No | Strong frontier multimodal model family | Closed training details limit independent analysis |
-| Ferret | 2024 | Vision encoder with region grounding | LLM backbone | Grounding-aware connector | Yes | Supports referring and grounding at flexible granularity | Requires reliable region-level annotation and grounding |
+| Model | Year | Vision Encoder | LLM Backbone | Connector | Open Source | Complexity and Resource Demand | Applicable Scenario | Major Strength | Major Weakness |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CLIP | 2021 | ResNet or Vision Transformer | Text encoder | Contrastive shared embedding | Yes | Moderate inference cost; dual encoder retrieval/classification | Open-vocabulary retrieval and representation learning | Strong open-vocabulary image-text alignment | Not a generative conversational MLLM |
+| Flamingo | 2022 | Perceiver-style visual resampler | Chinchilla-family language model | Gated cross-attention | No | Very high training and inference resource demand | Few-shot image/video-text tasks | Strong few-shot interleaved image/video-text learning | Closed weights and limited reproducibility |
+| BLIP-2 | 2023 | Frozen image encoder | Frozen LLM | Q-Former | Yes | Lower training cost than full end-to-end MLLM | Efficient image-to-text generation and VQA | Efficient bridge between vision encoders and LLMs | Connector may compress away fine visual detail |
+| InstructBLIP | 2023 | Frozen image encoder | Vicuna or FlanT5-style LLM | Q-Former with instruction tuning | Yes | Moderate adaptation cost; depends on LLM scale | Instruction-following visual QA and dialogue | Better instruction following than BLIP-2 | Still sensitive to instruction-data quality |
+| LLaVA | 2023 | CLIP ViT | Vicuna-style LLM | Linear projection | Yes | Relatively efficient open alignment recipe | Open visual assistant baseline | Simple and influential open visual instruction tuning baseline | Can hallucinate when visual grounding is weak |
+| MiniGPT-4 | 2024 | Vision Transformer with Q-Former | Vicuna-style LLM | Linear projection after Q-Former | Yes | Moderate cost with frozen components | Image dialogue and demonstration systems | Compact alignment recipe for image dialogue | Limited fine-grained grounding and OCR reliability |
+| Qwen-VL | 2023 | Vision-language encoder | Qwen language model | Multimodal adapter | Partly | High capability with significant pretraining resources | OCR localization and visual dialogue | Good OCR localization and general visual dialogue | Training details and data scale are difficult to fully reproduce |
+| InternVL | 2024 | Scaled vision foundation model | LLM backbone | Vision-language alignment module | Yes | High resource demand due to scale | Generic visual-linguistic tasks | Strong generic visual-linguistic capability | Large-scale training makes reproduction costly |
+| CogVLM | 2024 | Visual expert module | Pretrained language model | Visual expert integration | Yes | High architectural complexity and memory demand | Visual expert reasoning and open MLLM research | Preserves language ability while adding visual expertise | Architecture is more complex than projection-based models |
+| GPT-4V | 2023 | Not publicly disclosed | Not publicly disclosed | Not publicly disclosed | No | Unknown but likely very high | Frontier closed multimodal assistant | High-capability frontier multimodal assistant | Closed architecture data and training process |
+| Gemini | 2023 | Not fully public | Not fully public | Native multimodal system design | No | Unknown but likely very high | Frontier multimodal applications | Strong frontier multimodal model family | Closed training details limit independent analysis |
+| Ferret | 2024 | Vision encoder with region grounding | LLM backbone | Grounding-aware connector | Yes | Moderate to high due to region grounding | Referential dialogue and spatial grounding | Supports referring and grounding at flexible granularity | Requires reliable region-level annotation and grounding |
 
 Table 2. Representative MLLM architecture taxonomy.
 
@@ -224,55 +241,55 @@ Figure 3. Timeline distribution of representative MLLM-related models.
 
 ![Figure 3](figures/model_timeline.png)
 
-## 6. Training Paradigms
+### 4.7 Training Paradigms
 
-### 6.1 Image-Text Contrastive Pretraining
+### 4.7.1 Image-Text Contrastive Pretraining
 
 Contrastive pretraining aligns images and text at the representation level. It is scalable, works with large noisy image-caption datasets, and supports retrieval and classification. Its limitation is that it usually captures global correspondence rather than detailed reasoning. For example, matching an image with a caption does not require the model to count objects accurately, read small text, or reason through a diagram. Contrastive pretraining is therefore a strong foundation but not a complete solution.
 
-### 6.2 Captioning and Generative Pretraining
+### 4.7.2 Captioning and Generative Pretraining
 
-Generative pretraining teaches models to produce text from visual input. Captioning encourages the model to describe salient objects, attributes, and relations. However, captions are often incomplete. A caption may ignore details that are crucial for a later question. If a model is trained primarily on captions, it may underperform on tasks that require reading text, locating small objects, or answering unusual questions. BLIP-style bootstrapping addresses part of this issue by improving caption quality [34].
+Generative pretraining teaches models to produce text from visual input. Captioning encourages the model to describe salient objects, attributes, and relations. However, captions are often incomplete. A caption may ignore details that are crucial for a later question. If a model is trained primarily on captions, it may underperform on tasks that require reading text, locating small objects, or answering unusual questions. BLIP-style bootstrapping addresses part of this issue by improving caption quality [35].
 
-### 6.3 Connector Alignment
+### 4.7.3 Connector Alignment
 
 Connector alignment trains a module that maps visual features into the language model's input space. This is computationally attractive because the large language model can remain frozen. BLIP-2 is an important example [6]. The key question is what information the connector preserves. A small projection may be efficient but lossy. A query transformer can learn task-relevant summaries but may miss details outside its learned query capacity. Cross-attention can be expressive but computationally heavier.
 
-### 6.4 Visual Instruction Tuning
+### 4.7.4 Visual Instruction Tuning
 
 Visual instruction tuning uses multimodal conversations or question-answer pairs. LLaVA demonstrated the effectiveness of this approach for creating open visual assistants [8]. InstructBLIP refined instruction tuning in a BLIP-style architecture [9]. The training data may include human-written examples, synthetic examples generated by stronger models, or mixtures of task datasets reformatted as instructions.
 
 The strength of instruction tuning is behavioral alignment. It teaches the model to respond in a way users expect. The weakness is dependency on data quality. If training examples contain ungrounded claims, models can learn to hallucinate. If examples overrepresent certain domains, models may fail in underrepresented visual styles. If synthetic data is generated by a closed model, errors and biases may transfer into the open model.
 
-Parameter-efficient and feedback-based alignment methods also influence how open MLLMs are adapted. LoRA and QLoRA reduce the cost of fine-tuning large backbones by updating low-rank or quantized adaptation parameters rather than all weights [63] [64]. Human-feedback instruction following, developed first in text-only settings, remains relevant because multimodal assistants must learn when to answer, refuse, or express uncertainty [65]. Reasoning-oriented prompting and multimodal chain-of-thought studies further show why MLLM outputs should be evaluated for reasoning quality, not only final answer strings [66] [67].
+Parameter-efficient and feedback-based alignment methods also influence how open MLLMs are adapted. LoRA and QLoRA reduce the cost of fine-tuning large backbones by updating low-rank or quantized adaptation parameters rather than all weights [64] [65]. Human-feedback instruction following, developed first in text-only settings, remains relevant because multimodal assistants must learn when to answer, refuse, or express uncertainty [66]. Reasoning-oriented prompting and multimodal chain-of-thought studies further show why MLLM outputs should be evaluated for reasoning quality, not only final answer strings [67] [68].
 
 ### Author's Analysis
 
 Training paradigms reveal a tension between scale and supervision quality. More image-text data can improve coverage, but weak captions rarely teach exact grounding, OCR, or uncertainty. Instruction tuning improves usability but can teach a model to sound confident even when the visual evidence is weak. This survey argues that the next stage of MLLM training should combine scalable pretraining with explicit evidence supervision, uncertainty calibration, and negative examples where the correct response is to refuse or state that the image is insufficient.
 
-### 6.5 Safety and Refusal Alignment
+### 4.7.5 Safety and Refusal Alignment
 
 MLLMs introduce safety problems beyond text-only systems. A visual model may answer questions about people, medical images, identity, documents, or dangerous physical procedures. Safety alignment must consider both the text prompt and the visual content. GPT-4V's system card emphasizes safety evaluation and deployment considerations for visual inputs [12]. Open research still needs stronger public benchmarks for visual privacy, sensitive inference, medical uncertainty, and malicious multimodal prompting.
 
-## 7. Benchmark Evaluation and Comparative Analysis
+### 4.8 Benchmark Evaluation and Comparative Analysis
 
-### 7.1 Classical VQA Benchmarks
+### 4.8.1 Classical VQA Benchmarks
 
 VQA introduced open-ended question answering over images [13]. It remains historically important because it framed visual understanding as language-conditioned prediction. However, early VQA datasets can contain language biases, making it possible for models to answer some questions from text priors alone. GQA was designed to emphasize compositional reasoning and scene-graph structure [14]. OK-VQA requires external knowledge beyond visible image content [15]. Together, these benchmarks show that visual question answering is not a single skill: it may require perception, language priors, compositional reasoning, and world knowledge.
 
-### 7.2 Educational and Scientific Reasoning
+### 4.8.2 Educational and Scientific Reasoning
 
 ScienceQA evaluates multimodal science-question reasoning and explanations [16]. It is relevant because scientific tasks often combine text, diagrams, symbolic notation, and commonsense knowledge. MLLMs are attractive for education because they can potentially explain visual material, but this also raises risks. An incorrect explanation can be more harmful than a simple wrong label because it may appear authoritative. Therefore, education-oriented benchmarks should evaluate not only answer correctness but also reasoning quality and uncertainty.
 
-### 7.3 Broad MLLM Diagnostic Benchmarks
+### 4.8.3 Broad MLLM Diagnostic Benchmarks
 
 MME provides a broad diagnostic benchmark for perception and cognition in MLLMs [17]. MMBench asks whether multimodal models are all-around players and emphasizes systematic evaluation [18]. MM-Vet evaluates integrated capabilities, recognizing that real tasks often require multiple skills at once [19]. These benchmarks are useful because they move beyond narrow datasets. However, they should not be treated as complete measures of intelligence. Benchmark construction choices, answer formats, prompt templates, and model-specific preprocessing can influence outcomes.
 
-### 7.4 Expert-Domain and Mathematical Reasoning
+### 4.8.4 Expert-Domain and Mathematical Reasoning
 
 MMMU evaluates expert-level multimodal understanding across disciplines [20]. MathVista focuses on mathematical reasoning in visual contexts [22]. These benchmarks are important because many practical applications require more than object recognition. A model must interpret charts, diagrams, geometric relations, equations, and domain-specific terminology. Such tasks stress both visual parsing and symbolic reasoning. They also reveal the limitations of language priors: a fluent explanation is not enough if the model misreads a graph or diagram.
 
-### 7.5 Hallucination Evaluation
+### 4.8.5 Hallucination Evaluation
 
 Hallucination is a central MLLM failure mode. POPE evaluates object hallucination by probing whether models assert the presence of objects not in the image [21]. This problem is structurally connected to language-model priors. If a model sees a kitchen, it may mention common kitchen objects even when they are absent. If it sees a street, it may infer traffic signs or vehicles from context. Such behavior is dangerous in settings where visual evidence matters, including medicine, inspection, navigation, and legal documents.
 
@@ -297,13 +314,13 @@ Figure 5. Timeline distribution of representative MLLM benchmarks.
 
 ![Figure 5](figures/benchmark_timeline.png)
 
-### 7.6 Comparative Analysis Without Fabricated Scores
+### 4.8.6 Comparative Analysis Without Fabricated Scores
 
 This survey intentionally does not provide a leaderboard. A valid leaderboard requires controlled execution, exact model versions, prompts, decoding parameters, datasets, and scoring scripts. Without these details, benchmark numbers can be misleading. Even numbers copied from source papers must be interpreted carefully because models may have different training data, evaluation preprocessing, and prompt formats.
 
-Qualitatively, the literature supports several defensible comparisons. Contrastive models such as CLIP are strong representation learners but are not full conversational MLLMs [3]. Flamingo and BLIP-2 demonstrate that frozen components and learned connectors can produce strong multimodal generation and few-shot adaptation [5] [6]. LLaVA and InstructBLIP show that instruction tuning is essential for assistant-like behavior [8] [9]. Qwen-VL, InternVL, and CogVLM represent later efforts to expand grounding, scale, and visual expertise [11] [45] [7]. Closed systems such as GPT-4V remain important external references but cannot be fully reproduced from public information [12].
+Qualitatively, the literature supports several defensible comparisons. Contrastive models such as CLIP are strong representation learners but are not full conversational MLLMs [3]. Flamingo and BLIP-2 demonstrate that frozen components and learned connectors can produce strong multimodal generation and few-shot adaptation [5] [6]. LLaVA and InstructBLIP show that instruction tuning is essential for assistant-like behavior [8] [9]. Qwen-VL, InternVL, and CogVLM represent later efforts to expand grounding, scale, and visual expertise [11] [46] [7]. Closed systems such as GPT-4V remain important external references but cannot be fully reproduced from public information [12].
 
-### 7.7 Benchmark Design Risks
+### 4.8.7 Benchmark Design Risks
 
 Benchmark design strongly shapes research conclusions. A benchmark that uses multiple-choice questions may be easy to score, but it can reward test-taking strategies. A model may eliminate unlikely options using language priors rather than interpreting the image. Conversely, an open-ended benchmark may better reflect real user interaction, but automatic scoring becomes difficult because many correct answers may be phrased differently. Human evaluation can help, but it is expensive and may introduce annotator disagreement.
 
@@ -313,7 +330,7 @@ Dataset contamination is especially difficult for MLLMs. Large-scale web trainin
 
 Another risk is benchmark narrowness. A model can score well on common object recognition but fail at medical images, satellite imagery, engineering diagrams, or local cultural contexts. A model can answer English visual questions but fail multilingual instructions. A model can perform well on static images but fail video sequences requiring temporal reasoning. For this reason, benchmark results should be interpreted as evidence about the tested distribution, not universal ability.
 
-### 7.8 Error Taxonomy for MLLMs
+### 4.8.8 Error Taxonomy for MLLMs
 
 A useful evaluation framework should classify errors, not only count them. In MLLMs, errors often arise from different sources. Perception errors occur when the model fails to detect visible objects, text, attributes, or spatial relations. Grounding errors occur when the model identifies a correct concept but attaches it to the wrong region or entity. Reasoning errors occur when visual evidence is parsed correctly but the conclusion is wrong. Knowledge errors occur when the task requires external facts and the language model supplies incorrect knowledge. Instruction-following errors occur when the answer does not match the requested format or scope. Safety errors occur when the model provides harmful, privacy-invasive, or overconfident responses.
 
@@ -321,7 +338,7 @@ This taxonomy matters because different interventions address different errors. 
 
 The most dangerous errors are often plausible. If a model gives an obviously nonsensical answer, users may distrust it. If it gives a fluent, detailed, but unsupported explanation, users may accept it. This is why hallucination and calibration should be evaluated together. A reliable MLLM should know when visual evidence is insufficient and should express uncertainty in a way that users can understand.
 
-### 7.9 Reproducible Evaluation Protocol
+### 4.8.9 Reproducible Evaluation Protocol
 
 A controlled future experiment for this project could follow a transparent protocol. First, select open models with fixed released checkpoints. Second, record exact model identifiers, commit hashes, dependencies, and licenses. Third, download benchmarks from official sources and store checksums or version identifiers. Fourth, use a fixed image preprocessing pipeline. Fifth, define prompts in a configuration file rather than hard-coding them. Sixth, run inference with fixed decoding settings. Seventh, save raw model outputs before scoring. Eighth, score with released scripts or clearly documented local scripts. Ninth, report both aggregate metrics and representative error cases. Tenth, publish the full logs and configuration files.
 
@@ -331,9 +348,9 @@ Such a protocol would allow the paper to include quantitative results in a futur
 
 The benchmark literature suggests that MLLM evaluation is still more diagnostic than definitive. A model can perform well on a broad benchmark while still failing on OCR, grounding, or rare cultural contexts. Multiple-choice formats are convenient but may reward language priors; open-ended formats are realistic but harder to score reliably. This survey argues that future evaluation should report error categories, prompt settings, answer extraction rules, and uncertainty behavior alongside aggregate scores.
 
-## 8. Practical Case Studies
+## 5. Discussion and Analysis
 
-### 8.1 Hallucination Case Study
+### 5.1 Hallucination Case Study
 
 Consider an illustrative image of a kitchen counter containing a bowl, a cup, and a cutting board, but no knife. If a user asks, "What sharp tools are visible?", a poorly grounded MLLM may answer, "A knife is visible on the counter," because knives are statistically common in kitchen scenes. This example is not an experimental result and is not claimed as a benchmark outcome. It illustrates a known failure mode: the language model's scene prior can override missing visual evidence.
 
@@ -343,7 +360,7 @@ Figure 6. Illustrative hallucination mechanism.
 
 The scientifically preferable answer would be: "I do not see a sharp tool in the image; the visible items appear to include a bowl, cup, and cutting board." This response is better because it separates visible evidence from plausible but unsupported inference. The case also shows why hallucination evaluation should include absent-object questions, uncertainty prompts, and checks for overconfident descriptions. A useful MLLM should be rewarded not only for naming visible content, but also for refusing to invent content.
 
-### 8.2 OCR and Document Understanding Case Study
+### 5.2 OCR and Document Understanding Case Study
 
 Consider an illustrative document image containing a student ID number, a course title, and a submission deadline. If the text is small or blurred, an MLLM may produce a fluent but incorrect transcription. For example, it may confuse similar characters such as "0" and "O", or infer a plausible date from context rather than reading the actual document. This is again a conceptual example, not a reported experiment.
 
@@ -357,79 +374,65 @@ The correct system behavior should include uncertainty: "The course title appear
 
 These case studies show why MLLM reliability cannot be reduced to general conversational quality. Hallucination and OCR errors are different: hallucination reflects unsupported semantic completion, while OCR failure reflects loss of fine-grained visual evidence. Both can produce fluent answers, and both can be hidden by natural language style. This survey argues that practical MLLM systems should expose evidence, uncertainty, and task-specific failure modes rather than presenting all answers as equally reliable.
 
-## 9. Reproducibility Framework
+### 5.3 Reproducibility Framework
 
-### 8.1 What Reproducibility Means for a Survey
+### 5.3.1 What Reproducibility Means for a Survey
 
 Reproducibility in an experimental MLLM paper means that another researcher can rerun training or evaluation and obtain the same or meaningfully comparable results. Reproducibility in a survey is different but still important. A survey should allow readers to inspect which papers were included, how categories were assigned, how tables were generated, and where claims originate. This local package follows that principle by separating manuscript text, bibliography, structured taxonomy tables, and scripts.
 
 The bibliography file is a single source of truth for citation metadata. The paper cites entries using stable keys. The validation script checks that every cited key exists in the bibliography. This does not prove that every citation is perfectly formatted, but it prevents a common reproducibility problem: citing a source that is absent from the reference list. The model and benchmark taxonomy tables are stored as CSV files, making them easier to update and diff than manually formatted tables.
 
-### 8.2 What Would Be Required for Original Experiments
+### 5.3.2 What Would Be Required for Original Experiments
 
 If this project is extended from survey to original empirical research, the reproducibility requirements become much stricter. The repository would need dataset preparation scripts, exact download instructions, preprocessing code, training code, evaluation code, inference code, configuration files, model checkpoint identifiers, hardware descriptions, software versions, and random seeds. It would also need raw logs and result files. The paper would need to state optimizer, learning rate, batch size, number of epochs, weight decay, scheduler, precision mode, GPU type, memory, and total training time.
 
 For MLLM evaluation, additional fields are needed: image resolution, crop or tiling method, prompt template, system prompt, decoding temperature, top-p, maximum output tokens, answer normalization, scoring rule, and benchmark version. If API-based closed models are used, the paper should record model name, API version, access date, and any system instructions. Because API models can change over time, outputs should be saved locally as evidence.
 
-### 8.3 Data and License Responsibility
+### 5.3.3 Data and License Responsibility
 
 MLLM research often uses datasets with different licenses and privacy expectations. A reproducible repository should not automatically redistribute datasets unless redistribution is permitted. Instead, it should provide official links, citation information, checksums when possible, and scripts that place downloaded files into expected directories. This is why the current `datasets/` folder contains only notes and empty subdirectories. Adding data without license review would weaken the project, not strengthen it.
 
 Synthetic instruction data also requires documentation. If prompts or answers are generated by another model, the generating model, prompt, filtering process, and date should be recorded. Synthetic data can be useful, but it can also amplify errors or create circular evaluation if the same model family is later used as a judge. A rigorous project should separate human annotations, synthetic annotations, and benchmark labels.
 
-### 8.4 Public Repository Status
+### 5.3.4 Public Repository Status
 
-The template names `https://github.com/IssaIssa-tech/AI-final-report` as the intended repository. The URL exists, but it must contain the actual files before the paper claims public availability. This distinction is not administrative; it is part of research integrity. A reader should be able to open the link, inspect the code, and run the scripts. Until upload is complete, the paper should say that the local package is prepared and the public repository is pending population.
+The public repository is `https://github.com/IssaIssa-tech/AI-final-report`. It contains the manuscript source, bibliography, scripts, structured tables, generated figures, presentation materials, and final submission files. This is part of research integrity: a reader should be able to open the link, inspect the code, and rerun the scripts that validate citations, regenerate tables and figures, and produce the formatted manuscript.
 
 ### Author's Analysis
 
 For a survey paper, reproducibility means traceability. A reader should be able to determine why each reference is cited, how each table was generated, and how final formatting was produced. The current repository supports this goal through scripts for citation validation, table generation, figure generation, ChinaXiv formatting, layout comparison, and presentation generation. The main remaining reproducibility limitation is that the paper does not provide executable model experiments, because it does not claim any.
 
-## 10. Ethical, Safety, and Deployment Considerations
+### 5.4 Ethical, Safety, and Deployment Considerations
 
-### 9.1 Visual Privacy and Sensitive Inference
+MLLMs raise safety issues because visual inputs may contain faces, identity documents, locations, medical information, private messages, or workplace data. A responsible system should avoid unnecessary sensitive inference and should disclose whether images are stored, sent to third-party APIs, or used for model improvement. In course-level research, the safest default is to use public datasets and documented examples rather than private images.
 
-MLLMs process images that may contain faces, homes, identity documents, license plates, medical information, location clues, workplace materials, or personal messages. This makes privacy risk more direct than in text-only systems. A text prompt may describe a person, but an image can reveal appearance, environment, socioeconomic signals, health conditions, and private context without the person's explicit consent. A deployed MLLM should therefore avoid unnecessary sensitive inference. It should not infer identity, protected attributes, medical diagnoses, or private facts from images unless the application has a justified, consent-based, and legally appropriate basis.
+Reliability is especially important in education, law, medicine, engineering, and public safety. In such settings, an MLLM should distinguish visible evidence from inference, state uncertainty, and recommend human review when appropriate. Bias is also multimodal: visual datasets may underrepresent regions, scripts, clothing styles, skin tones, or cultural practices, while language data may introduce stereotypes. Evaluation should therefore include diverse visual contexts and multilingual prompts.
 
-The privacy problem is not limited to final answers. Uploaded images may be stored in logs, used for monitoring, or retained for future training. A reproducible research paper should disclose whether visual inputs are stored, whether they are shared with third-party APIs, and whether they are used for training. In a course project, the safest default is to use public benchmark data according to its license and avoid uploading private images to external services. If a closed API is used, the paper should document the service terms and data-retention settings available at the time of evaluation.
-
-### 9.2 Reliability in High-Stakes Domains
-
-MLLMs are attractive for domains such as medicine, education, law, engineering, and public safety because they can explain visual material in natural language. The same property makes errors more consequential. A medical-image explanation, a legal-document interpretation, or a safety-inspection judgment can influence user decisions. Current MLLMs are not reliable enough to be treated as autonomous experts in these settings without validation, oversight, and domain-specific controls.
-
-High-stakes deployment should require conservative behavior. The model should distinguish visible evidence from inference, state uncertainty, and recommend professional review when appropriate. It should avoid presenting guesses as facts. For example, if an image is low resolution, partially occluded, or outside the model's training distribution, the system should say so. Benchmark accuracy alone is insufficient because rare failures can be severe. Evaluation should include stress tests, adversarial examples, out-of-distribution inputs, and human review of failure cases.
-
-### 9.3 Hallucination and User Trust
-
-Hallucination is not only a technical error; it is a trust problem. Users often assume that a detailed answer reflects detailed perception. In MLLMs, this assumption can be false. A model may provide a confident description because the language model knows what usually appears in similar scenes, not because the visual encoder captured the evidence. This risk is especially serious when outputs include numbers, text transcription, identity claims, scientific explanations, or procedural instructions.
-
-User interfaces can reduce or amplify hallucination harm. A system that shows uncertainty, highlights image regions, or cites extracted OCR evidence gives users more opportunity to verify. A system that presents a polished paragraph with no evidence may invite overtrust. Therefore, model design and interface design should be considered together. Future MLLM systems should expose confidence, evidence, and limitations where possible, especially for tasks requiring exact visual grounding.
-
-### 9.4 Bias and Representation
-
-MLLMs inherit biases from both visual and textual data. Visual datasets may underrepresent certain regions, occupations, skin tones, clothing styles, scripts, cultural artifacts, and living environments. Language data may encode stereotypes and social assumptions. When these modalities interact, bias can appear in subtle ways. A model may describe people differently based on appearance, infer occupations from gendered cues, or fail to read non-Latin scripts. It may also perform better on images from regions and cultures that dominate training data.
-
-Bias evaluation should therefore include diverse visual contexts and languages. It should not only measure whether the model recognizes objects but also how it describes people and social situations. In educational settings, biased explanations can disadvantage students whose materials, languages, or cultural references are underrepresented. In public deployment, biased visual inference can cause reputational or material harm. A responsible survey should acknowledge these risks even when it does not perform new bias experiments.
-
-### 9.5 Environmental and Compute Costs
-
-Training large MLLMs can require substantial compute, energy, and engineering resources. Even fine-tuning and evaluation can be expensive when models process high-resolution images or long visual-token sequences. This creates an access gap: organizations with large compute budgets can train frontier models, while universities and smaller labs may rely on open checkpoints or APIs. Efficient connectors, frozen-backbone methods, parameter-efficient tuning, and careful evaluation design are therefore not only engineering conveniences; they are also important for broader research participation.
-
-For a course project, it is appropriate to avoid unnecessary training when the research question is survey-based. Running large experiments without a clear hypothesis would waste resources and may not improve the paper. The present project uses lightweight scripts because the goal is literature organization and reproducibility, not model optimization.
-
-### 9.6 Practical Deployment Guidance
-
-Practical MLLM deployment should follow a layered approach. First, define the task and risk level. A casual image-description assistant has different requirements from a medical triage tool. Second, choose models and tools appropriate to the task. If exact OCR is required, a specialized OCR component may be necessary. If mathematical diagram reasoning is required, a symbolic or programmatic solver may be useful. Third, evaluate on domain-specific data, not only general benchmarks. Fourth, monitor failures and update prompts, tools, or models based on evidence. Fifth, provide user-facing uncertainty and escalation paths.
-
-This guidance reinforces the main argument of the survey: MLLMs should not be evaluated only as general chatbots. They are multimodal systems whose reliability depends on perception, grounding, language reasoning, safety alignment, interface design, and deployment context.
+Deployment should be layered. The task and risk level should be defined first; then the system should combine the MLLM with suitable tools such as OCR, retrieval, chart parsers, or symbolic solvers when exact evidence is required. Efficient connectors, quantization, and modular design are also important because universities and small laboratories cannot always reproduce frontier-scale training.
 
 ### Author's Analysis
 
 The ethical risk of MLLMs is amplified by the authority of visual evidence. Users may believe that a model "saw" something even when the answer was produced by prior knowledge or pattern completion. This survey argues that safe deployment requires calibrated uncertainty, visual evidence presentation, privacy-aware logging, and clear boundaries between assistance and professional judgment. In high-stakes settings, an MLLM should support human review rather than replace it.
 
-## 11. Discussion
+### 5.5 Response to Research Questions and Course Reflection
 
 The MLLM field is shaped by a trade-off between capability, openness, and reliability. Closed frontier systems can deliver strong user-facing behavior, but they offer limited scientific transparency. Open models make analysis possible, but they may lag closed models in training scale, data quality, and safety alignment. Surveys and benchmarks must therefore avoid treating capability as a single number. A model's usefulness depends on what it sees, how it reasons, whether it admits uncertainty, and whether its training and evaluation can be audited.
+
+### 5.5.1 Response to Initial Research Questions
+
+This survey proposed four research questions. First, the dominant architecture patterns are contrastive dual encoders, frozen-backbone connector models, instruction-tuned open MLLMs, visual-expert models, and closed frontier systems. The literature suggests that no single architecture is universally best; each makes different trade-offs among efficiency, grounding, openness, and capability.
+
+Second, the main training and alignment paradigms are image-text contrastive pretraining, captioning and generative pretraining, connector alignment, visual instruction tuning, parameter-efficient adaptation, and safety/refusal alignment. Existing evidence indicates that instruction tuning improves usability, but it does not guarantee visual faithfulness.
+
+Third, benchmark families evaluate perception, OCR, document understanding, science reasoning, mathematical reasoning, hallucination, and expert-domain competence. However, benchmark results must be interpreted carefully because prompt design, answer extraction, data contamination, and scoring style can strongly affect conclusions.
+
+Fourth, trustworthy MLLM research requires reproducible references, transparent taxonomy construction, released scripts, clear code availability, and explicit distinction between survey analysis and executed experiments. This project answers that requirement through public scripts for validation, formatting, figure generation, and layout comparison.
+
+### 5.5.2 Course Knowledge Reflection and Expansion
+
+The survey deepens understanding of the Advanced Artificial Intelligence course because MLLMs combine multiple course modules in one system. Structural intelligence explains the neural computation behind encoders, connectors, and language backbones. Visual intelligence explains the perception modules that convert images into features. Language intelligence explains Transformers and LLM reasoning. Generative intelligence explains output generation and the risk of hallucination. Graph intelligence provides tools for relational reasoning and scene/document structure. Multimodal intelligence explains cross-modal fusion. Reinforcement intelligence explains human-feedback alignment and refusal behavior. Agent intelligence explains tool use, planning, and multimodal workflows [27].
+
+This course-level view clarifies why MLLMs are a suitable final-report topic. They are not only an application of one module; they are a frontier integration of visual, language, generative, reinforcement, and agent intelligence. The report therefore demonstrates systematic course mastery while focusing the deeper investigation on multimodal intelligence.
 
 Architecture choices reveal another trade-off. Freezing large backbones reduces compute and makes modular development possible. However, it may limit deep cross-modal integration. End-to-end training can improve integration but is expensive and difficult to reproduce. Query transformers, projection layers, cross-attention, and visual experts are all attempts to balance this trade-off. No design has solved all challenges. Fine-grained OCR, spatial reasoning, long video understanding, chart analysis, and multimodal mathematical reasoning remain difficult.
 
@@ -447,7 +450,7 @@ The unresolved research questions are concrete. How many visual tokens are neces
 
 This survey argues that the next phase of MLLM research should shift from "Can the model answer?" to "Can the model justify, localize, calibrate, and reproduce its answer?" A model that is slightly less fluent but more faithful may be more valuable than a model that is highly fluent but ungrounded. The central open problem is not only multimodal capability, but trustworthy multimodal capability.
 
-## 12. Limitations
+### 5.6 Limitations
 
 This paper has several limitations. First, it is a survey and does not contain new experiments. Therefore, it cannot make empirical claims about comparative model performance beyond what is supported by cited literature. Second, the field changes rapidly, and new MLLMs may appear after this draft. The bibliography should be updated before final submission. Third, the paper focuses primarily on image-language models and does not deeply cover audio, speech, 3D perception, robotics, or long-form video. Fourth, closed systems such as GPT-4V cannot be fully analyzed because training details and model weights are not public [12]. Fifth, the taxonomy simplifies complex systems into categories; some models fit multiple categories at once.
 
@@ -457,7 +460,9 @@ There are also reproducibility limitations. The public repository contains scrip
 
 The limitations are deliberate boundaries. By not reporting new benchmark scores, the paper avoids unsupported empirical claims. By focusing mainly on image-language systems, it keeps the survey coherent for a master's course report. The trade-off is that the paper cannot fully cover audio, 3D, robotics, or long-video systems. Future extensions should treat those areas as separate sub-surveys rather than adding them superficially.
 
-## 13. Conclusion
+## 6. Conclusion and Future Outlook
+
+### 6.1 Conclusion
 
 Multimodal large language models represent a major shift in artificial intelligence research. They combine visual perception, language generation, instruction following, and reasoning in a single interface. Their development builds on transformers, large language models, contrastive vision-language learning, generative pretraining, connector-based alignment, and visual instruction tuning. Representative systems such as CLIP, Flamingo, BLIP-2, InstructBLIP, LLaVA, MiniGPT-4, Qwen-VL, InternVL, CogVLM, and GPT-4V illustrate the diversity of architecture and alignment strategies.
 
@@ -469,7 +474,7 @@ This survey provides a reproducible foundation for a ChinaXiv-style final report
 
 The main conclusion is that MLLMs should be evaluated as evidence-processing systems. Their value depends on whether they can connect visual input, language reasoning, uncertainty, and user intent without inventing unsupported content. This is why the paper emphasizes grounding, hallucination, reproducibility, and critical comparison rather than a simple chronology of models.
 
-## 14. Future Work
+### 6.2 Future Work
 
 Future work should extend this survey in several concrete directions. First, adaptive visual token selection should be studied more deeply. Instead of compressing every image into a fixed number of tokens, an MLLM should allocate more visual capacity to regions containing text, small objects, diagrams, or uncertain evidence. Second, multimodal retrieval-augmented generation should connect model answers to external documents, image regions, OCR outputs, and domain databases so that responses can cite evidence rather than rely only on internal parameters.
 
@@ -504,7 +509,7 @@ The reproducibility package is publicly available in the GitHub repository. The 
 
 ## Final Verification Checklist
 
-- Required sections are present: title, authors, abstract, keywords, introduction, related work, theoretical foundation, methodology, comparative analysis, discussion, limitations, conclusion, future work, references, and code availability.
+- Required sections are present: title, student name, supervisor/course instructor, school, laboratory, abstract, keywords, six course-aligned chapters, references, and code availability.
 - References are real works from peer-reviewed venues, arXiv preprints, or official technical reports.
 - No new benchmark numbers are reported.
 - No experiments are claimed.
@@ -563,86 +568,88 @@ The reproducibility package is publicly available in the GitHub repository. The 
 
 [25] Caffagni Davide, Cocchi Federico, Barsellotti Luca, et al. The Revolution of Multimodal Large Language Models: A Survey[J]. arXiv preprint arXiv:2402.12451, 2024.
 
-[26] HITsz-TMG. Awesome Large Multimodal Reasoning Models. 2025.
+[26] HITsz-TMG. Awesome Large Multimodal Reasoning Models[Z]. GitHub repository, 2025. https://github.com/HITsz-TMG/Awesome-Large-Multimodal-Reasoning-Models
 
-[27] Anderson Peter, He Xiaodong, Buehler Chris, et al. Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2018.
+[27] Tseng Kuo-Kun, Course Teaching Group. Advanced Artificial Intelligence Course Teaching Materials[Z]. Harbin Institute of Technology, Shenzhen, School of Computer Science and Technology, 2026.
 
-[28] Lu Jiasen, Batra Dhruv, Parikh Devi, et al. ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks[C]. Advances in Neural Information Processing Systems, 2019.
+[28] Anderson Peter, He Xiaodong, Buehler Chris, et al. Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2018.
 
-[29] Tan Hao, Bansal Mohit. LXMERT: Learning Cross-Modality Encoder Representations from Transformers[C]. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing, 2019.
+[29] Lu Jiasen, Batra Dhruv, Parikh Devi, et al. ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks[C]. Advances in Neural Information Processing Systems, 2019.
 
-[30] Chen Yen-Chun, Li Linjie, Yu Licheng, et al. UNITER: UNiversal Image-TExt Representation Learning[C]. European Conference on Computer Vision, 2020.
+[30] Tan Hao, Bansal Mohit. LXMERT: Learning Cross-Modality Encoder Representations from Transformers[C]. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing, 2019.
 
-[31] Li Xiujun, Yin Xi, Li Chunyuan, et al. Oscar: Object-Semantics Aligned Pre-training for Vision-Language Tasks[C]. European Conference on Computer Vision, 2020.
+[31] Chen Yen-Chun, Li Linjie, Yu Licheng, et al. UNITER: UNiversal Image-TExt Representation Learning[C]. European Conference on Computer Vision, 2020.
 
-[32] Zhang Pengchuan, Li Xiujun, Hu Xiaowei, et al. VinVL: Revisiting Visual Representations in Vision-Language Models[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021.
+[32] Li Xiujun, Yin Xi, Li Chunyuan, et al. Oscar: Object-Semantics Aligned Pre-training for Vision-Language Tasks[C]. European Conference on Computer Vision, 2020.
 
-[33] Wang Peng, Yang An, Men Rui, et al. OFA: Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework[C]. International Conference on Machine Learning, 2022.
+[33] Zhang Pengchuan, Li Xiujun, Hu Xiaowei, et al. VinVL: Revisiting Visual Representations in Vision-Language Models[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021.
 
-[34] Li Junnan, Li Dongxu, Xiong Caiming, et al. BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation[C]. International Conference on Machine Learning, 2022.
+[34] Wang Peng, Yang An, Men Rui, et al. OFA: Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework[C]. International Conference on Machine Learning, 2022.
 
-[35] Chen Xi, Wang Xiao, Changpinyo Soravit, et al. PaLI: A Jointly-Scaled Multilingual Language-Image Model[J]. arXiv preprint arXiv:2209.06794, 2022.
+[35] Li Junnan, Li Dongxu, Xiong Caiming, et al. BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation[C]. International Conference on Machine Learning, 2022.
 
-[36] Driess Danny, Xia Fei, Sajjadi Mehdi S. M., et al. PaLM-E: An Embodied Multimodal Language Model[C]. International Conference on Machine Learning, 2023.
+[36] Chen Xi, Wang Xiao, Changpinyo Soravit, et al. PaLI: A Jointly-Scaled Multilingual Language-Image Model[J]. arXiv preprint arXiv:2209.06794, 2022.
 
-[37] Huang Shaohan, Dong Li, Wang Wenhui, et al. Language Is Not All You Need: Aligning Perception with Language Models[J]. arXiv preprint arXiv:2302.14045, 2023.
+[37] Driess Danny, Xia Fei, Sajjadi Mehdi S. M., et al. PaLM-E: An Embodied Multimodal Language Model[C]. International Conference on Machine Learning, 2023.
 
-[38] Peng Zhiliang, Wang Wenhui, Dong Li, et al. Kosmos-2: Grounding Multimodal Large Language Models to the World[J]. arXiv preprint arXiv:2306.14824, 2023.
+[38] Huang Shaohan, Dong Li, Wang Wenhui, et al. Language Is Not All You Need: Aligning Perception with Language Models[J]. arXiv preprint arXiv:2302.14045, 2023.
 
-[39] Ye Qinghao, Xu Haiyang, Xu Guohai, et al. mPLUG-Owl: Modularization Empowers Large Language Models with Multimodality[J]. arXiv preprint arXiv:2304.14178, 2023.
+[39] Peng Zhiliang, Wang Wenhui, Dong Li, et al. Kosmos-2: Grounding Multimodal Large Language Models to the World[J]. arXiv preprint arXiv:2306.14824, 2023.
 
-[40] Chen Keqin, Zhang Zhao, Zeng Weili, et al. Shikra: Unleashing Multimodal LLM's Referential Dialogue Magic[J]. arXiv preprint arXiv:2306.15195, 2023.
+[40] Ye Qinghao, Xu Haiyang, Xu Guohai, et al. mPLUG-Owl: Modularization Empowers Large Language Models with Multimodality[J]. arXiv preprint arXiv:2304.14178, 2023.
 
-[41] You Haoxuan, Zhang Haotian, Gan Zhe, et al. Ferret: Refer and Ground Anything Anywhere at Any Granularity[C]. International Conference on Learning Representations, 2024.
+[41] Chen Keqin, Zhang Zhao, Zeng Weili, et al. Shikra: Unleashing Multimodal LLM's Referential Dialogue Magic[J]. arXiv preprint arXiv:2306.15195, 2023.
 
-[42] Lin Ji, Yin Hongxu, Ping Wei, et al. VILA: On Pre-training for Visual Language Models[J]. arXiv preprint arXiv:2312.07533, 2023.
+[42] You Haoxuan, Zhang Haotian, Gan Zhe, et al. Ferret: Refer and Ground Anything Anywhere at Any Granularity[C]. International Conference on Learning Representations, 2024.
 
-[43] Lin Bin, Ye Yang, Zhu Bin, et al. Video-LLaVA: Learning United Visual Representation by Alignment Before Projection[C]. Conference on Empirical Methods in Natural Language Processing, 2024.
+[43] Lin Ji, Yin Hongxu, Ping Wei, et al. VILA: On Pre-training for Visual Language Models[J]. arXiv preprint arXiv:2312.07533, 2023.
 
-[44] Wu Chenfei, Yin Shengming, Qi Weizhen, et al. Visual ChatGPT: Talking, Drawing and Editing with Visual Foundation Models[J]. arXiv preprint arXiv:2303.04671, 2023.
+[44] Lin Bin, Ye Yang, Zhu Bin, et al. Video-LLaVA: Learning United Visual Representation by Alignment Before Projection[C]. Conference on Empirical Methods in Natural Language Processing, 2024.
 
-[45] Chen Zhe, Wu Jiannan, Wang Wenhai, et al. InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024.
+[45] Wu Chenfei, Yin Shengming, Qi Weizhen, et al. Visual ChatGPT: Talking, Drawing and Editing with Visual Foundation Models[J]. arXiv preprint arXiv:2303.04671, 2023.
 
-[46] Achiam Josh, Adler Steven, Agarwal Sandhini, et al. GPT-4 Technical Report[J]. arXiv preprint arXiv:2303.08774, 2023.
+[46] Chen Zhe, Wu Jiannan, Wang Wenhai, et al. InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024.
 
-[47] Anil Rohan, Borgeaud Sebastian, Wu Yonghui, et al. Gemini: A Family of Highly Capable Multimodal Models[J]. arXiv preprint arXiv:2312.11805, 2023.
+[47] Achiam Josh, Adler Steven, Agarwal Sandhini, et al. GPT-4 Technical Report[J]. arXiv preprint arXiv:2303.08774, 2023.
 
-[48] Awadalla Anas, Gao Irena, Gardner Josh, et al. OpenFlamingo: An Open-Source Framework for Training Large Autoregressive Vision-Language Models[J]. arXiv preprint arXiv:2308.01390, 2023.
+[48] Anil Rohan, Borgeaud Sebastian, Wu Yonghui, et al. Gemini: A Family of Highly Capable Multimodal Models[J]. arXiv preprint arXiv:2312.11805, 2023.
 
-[49] Laurencon Hugo, Saulnier Lucile, Tronchon Loic, et al. Obelics: An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents[J]. arXiv preprint arXiv:2306.16527, 2023.
+[49] Awadalla Anas, Gao Irena, Gardner Josh, et al. OpenFlamingo: An Open-Source Framework for Training Large Autoregressive Vision-Language Models[J]. arXiv preprint arXiv:2308.01390, 2023.
 
-[50] Girdhar Rohit, El-Nouby Alaaeldin, Liu Zhuang, et al. ImageBind: One Embedding Space To Bind Them All[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2023.
+[50] Laurencon Hugo, Saulnier Lucile, Tronchon Loic, et al. Obelics: An Open Web-Scale Filtered Dataset of Interleaved Image-Text Documents[J]. arXiv preprint arXiv:2306.16527, 2023.
 
-[51] Wu Shengqiong, Fei Hao, Qu Leigang, et al. NExT-GPT: Any-to-Any Multimodal LLM[J]. arXiv preprint arXiv:2309.05519, 2023.
+[51] Girdhar Rohit, El-Nouby Alaaeldin, Liu Zhuang, et al. ImageBind: One Embedding Space To Bind Them All[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2023.
 
-[52] Li Yanwei, Wang Chengyao, Jia Jiaya. LLaMA-VID: An Image is Worth 2 Tokens in Large Language Models[J]. arXiv preprint arXiv:2311.17043, 2023.
+[52] Wu Shengqiong, Fei Hao, Qu Leigang, et al. NExT-GPT: Any-to-Any Multimodal LLM[J]. arXiv preprint arXiv:2309.05519, 2023.
 
-[53] Maaz Muhammad, Rasheed Hanoona, Khan Salman, et al. Video-ChatGPT: Towards Detailed Video Understanding via Large Vision and Language Models[J]. arXiv preprint arXiv:2306.05424, 2023.
+[53] Li Yanwei, Wang Chengyao, Jia Jiaya. LLaMA-VID: An Image is Worth 2 Tokens in Large Language Models[J]. arXiv preprint arXiv:2311.17043, 2023.
 
-[54] Chen Chi, Du Yiyang, Fang Zheng, et al. Model Composition for Multimodal Large Language Models[C]. Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics, 2024.
+[54] Maaz Muhammad, Rasheed Hanoona, Khan Salman, et al. Video-ChatGPT: Towards Detailed Video Understanding via Large Vision and Language Models[J]. arXiv preprint arXiv:2306.05424, 2023.
 
-[55] Schwenk Dustin, Khandelwal Apoorv, Clark Christopher, et al. A-OKVQA: A Benchmark for Visual Question Answering Using World Knowledge[C]. European Conference on Computer Vision, 2022.
+[55] Chen Chi, Du Yiyang, Fang Zheng, et al. Model Composition for Multimodal Large Language Models[C]. Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics, 2024.
 
-[56] Johnson Justin, Hariharan Bharath, van der Maaten Laurens, et al. CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2017.
+[56] Schwenk Dustin, Khandelwal Apoorv, Clark Christopher, et al. A-OKVQA: A Benchmark for Visual Question Answering Using World Knowledge[C]. European Conference on Computer Vision, 2022.
 
-[57] Singh Amanpreet, Natarajan Vivek, Shah Meet, et al. Towards VQA Models That Can Read[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2019.
+[57] Johnson Justin, Hariharan Bharath, van der Maaten Laurens, et al. CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning[C]. IEEE Conference on Computer Vision and Pattern Recognition, 2017.
 
-[58] Mathew Minesh, Karatzas Dimosthenis, Jawahar C. V. DocVQA: A Dataset for VQA on Document Images[C]. IEEE Winter Conference on Applications of Computer Vision, 2021.
+[58] Singh Amanpreet, Natarajan Vivek, Shah Meet, et al. Towards VQA Models That Can Read[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2019.
 
-[59] Masry Ahmed, Long Do Xuan, Tan Jia Qing, et al. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning[C]. Findings of the Association for Computational Linguistics: ACL 2022, 2022.
+[59] Mathew Minesh, Karatzas Dimosthenis, Jawahar C. V. DocVQA: A Dataset for VQA on Document Images[C]. IEEE Winter Conference on Applications of Computer Vision, 2021.
 
-[60] Li Bohao, Wang Rui, Wang Guangzhi, et al. SEED-Bench: Benchmarking Multimodal LLMs with Generative Comprehension[J]. arXiv preprint arXiv:2307.16125, 2023.
+[60] Masry Ahmed, Long Do Xuan, Tan Jia Qing, et al. ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning[C]. Findings of the Association for Computational Linguistics: ACL 2022, 2022.
 
-[61] Guan Tianrui, Liu Fuxiao, Wu Xiyang, et al. HallusionBench: An Advanced Diagnostic Suite for Entangled Language Hallucination and Visual Illusion in Large Vision-Language Models[J]. arXiv preprint arXiv:2310.14566, 2023.
+[61] Li Bohao, Wang Rui, Wang Guangzhi, et al. SEED-Bench: Benchmarking Multimodal LLMs with Generative Comprehension[J]. arXiv preprint arXiv:2307.16125, 2023.
 
-[62] Lin Peiqin, Lyu Chenyang, Luo Wenjiang, et al. CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks[J]. arXiv preprint arXiv:2604.19262, 2026.
+[62] Guan Tianrui, Liu Fuxiao, Wu Xiyang, et al. HallusionBench: An Advanced Diagnostic Suite for Entangled Language Hallucination and Visual Illusion in Large Vision-Language Models[J]. arXiv preprint arXiv:2310.14566, 2023.
 
-[63] Hu Edward J., Shen Yelong, Wallis Phillip, et al. LoRA: Low-Rank Adaptation of Large Language Models[C]. International Conference on Learning Representations, 2022.
+[63] Lin Peiqin, Lyu Chenyang, Luo Wenjiang, et al. CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks[J]. arXiv preprint arXiv:2604.19262, 2026.
 
-[64] Dettmers Tim, Pagnoni Artidoro, Holtzman Ari, et al. QLoRA: Efficient Finetuning of Quantized LLMs[C]. Advances in Neural Information Processing Systems, 2024.
+[64] Hu Edward J., Shen Yelong, Wallis Phillip, et al. LoRA: Low-Rank Adaptation of Large Language Models[C]. International Conference on Learning Representations, 2022.
 
-[65] Ouyang Long, Wu Jeffrey, Jiang Xu, et al. Training Language Models to Follow Instructions with Human Feedback[C]. Advances in Neural Information Processing Systems, 2022.
+[65] Dettmers Tim, Pagnoni Artidoro, Holtzman Ari, et al. QLoRA: Efficient Finetuning of Quantized LLMs[C]. Advances in Neural Information Processing Systems, 2024.
 
-[66] Wei Jason, Wang Xuezhi, Schuurmans Dale, et al. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models[C]. Advances in Neural Information Processing Systems, 2022.
+[66] Ouyang Long, Wu Jeffrey, Jiang Xu, et al. Training Language Models to Follow Instructions with Human Feedback[C]. Advances in Neural Information Processing Systems, 2022.
 
-[67] Zhang Zhuosheng, Zhang Aston, Li Mu, et al. Multimodal Chain-of-Thought Reasoning in Language Models[J]. arXiv preprint arXiv:2302.00923, 2023.
+[67] Wei Jason, Wang Xuezhi, Schuurmans Dale, et al. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models[C]. Advances in Neural Information Processing Systems, 2022.
+
+[68] Zhang Zhuosheng, Zhang Aston, Li Mu, et al. Multimodal Chain-of-Thought Reasoning in Language Models[J]. arXiv preprint arXiv:2302.00923, 2023.

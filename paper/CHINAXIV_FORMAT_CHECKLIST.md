@@ -4,7 +4,7 @@ Prepared files:
 
 - `paper_chinaxiv.md`: source manuscript with numbered citations and numbered references
 - `paper_chinaxiv.docx`: Word submission document
-- `paper_chinaxiv_professional_revision_v3.pdf`: final professionally revised PDF submission document
+- `paper_chinaxiv_course_guideline_final_v4.pdf`: final course-guideline-aligned PDF submission document
 - `references.bib`: source bibliography
 - `figures/architecture_diagram.png`: MLLM architecture diagram
 - `figures/connector_tradeoff_diagram.png`: connector trade-off diagram
@@ -17,21 +17,22 @@ Prepared files:
 
 Formatting applied:
 
-- Letter page size matching the provided ChinaXiv sample PDF
-- Narrow centered margins closely matching the provided ChinaXiv sample
-- Bottom footer rule on every page, matching the provided ChinaXiv sample style
+- A4 page size following the course final-report guideline
+- 2.5 cm top, bottom, left, and right margins following the course final-report guideline
+- 1.5 line spacing in the main manuscript body
+- Bottom footer rule with centered page number on every page, matching the provided ChinaXiv sample style
 - Centered title, author, affiliation, and corresponding-author information
 - English abstract with 222 words
-- Keywords
-- Numbered section headings
+- Five keywords
+- Six course-aligned main chapters
 - Main text in academic manuscript layout
 - Three inserted comparison/taxonomy tables
 - Comprehensive model comparison table
 - Seven inserted academic diagrams/charts
-- Fourteen Author's Analysis subsections
+- Fifteen Author's Analysis subsections
 - Two practical case studies
 - Numbered in-text citations, e.g. `[1]`
-- 67 numbered references formatted in GB/T 7714-like style
+- 68 numbered references formatted in GB/T 7714-like style
 - Code Availability section with the populated GitHub repository URL
 - Final verification checklist
 

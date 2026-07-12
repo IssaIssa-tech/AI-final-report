@@ -179,7 +179,7 @@ def slide_validate_refs(prs: Presentation) -> None:
             "Uses regular expressions to find citation keys like [@radford2021clip].",
             "Uses another regular expression to extract BibTeX keys from references.bib.",
             "Fails with exit code 1 if a cited key is missing.",
-            "Current check: 67 citation keys and 67 bibliography entries.",
+            "Current check: 68 citation keys and 68 bibliography entries.",
         ],
         w=6.0,
     )
@@ -251,7 +251,7 @@ def slide_format(prs: Presentation) -> None:
             "Formats references in a GB/T 7714-like numbered style.",
             "Inserts compact taxonomy tables and generated figures.",
             "Creates paper_chinaxiv.md and paper_chinaxiv.docx.",
-            "Sets Letter page size, narrow margins, 10 pt body text, 12 pt headings, and a footer rule.",
+            "Sets A4 page size, 2.5 cm margins, 10 pt body text, bold headings, 1.5 line spacing, and a footer rule with centered page number.",
         ],
         w=6.0,
     )
@@ -259,8 +259,9 @@ def slide_format(prs: Presentation) -> None:
         slide,
         "order = citation_order(original)\n"
         "text = replace_citations(original, order)\n\n"
-        "section.page_width = Cm(21.59)\n"
-        "section.page_height = Cm(27.94)\n"
+        "section.page_width = Cm(21)\n"
+        "section.page_height = Cm(29.7)\n"
+        "section.left_margin = Cm(2.5)\n"
         "set_paragraph_top_border(footer)",
     )
     add_footer(slide)
@@ -275,8 +276,8 @@ def slide_layout(prs: Presentation) -> None:
             "Uses PyMuPDF to read PDF page dimensions, text boxes, font sizes, and fonts.",
             "Compares the provided sample against the final PDF.",
             "Writes docs/chinaxiv_sample_comparison.md.",
-            "Verified page size: 612 x 792 pt, matching the sample.",
-            "Verified side margins are close to the sample: about 133 pt.",
+            "Checks the final PDF against the sample while following the course A4 and 2.5 cm margin requirement.",
+            "Confirms footer rule, page numbers, fonts, captions, and source notes in the final submission.",
         ],
         w=6.0,
     )
@@ -362,7 +363,7 @@ def slide_commands(prs: Presentation) -> None:
         w=11.7,
         h=4.6,
     )
-    add_bullets(slide, ["Expected validation result: 67 citation keys, 67 bibliography entries, reference validation passed."], x=0.85, y=6.0, w=11.7, h=0.55, font_size=14)
+    add_bullets(slide, ["Expected validation result: 68 citation keys, 68 bibliography entries, reference validation passed."], x=0.85, y=6.0, w=11.7, h=0.55, font_size=14)
     add_footer(slide)
 
 

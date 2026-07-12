@@ -8,7 +8,7 @@ import fitz
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLE = ROOT / "chinaxiv-202509.00064.pdf"
-TARGET = ROOT / "paper" / "paper_chinaxiv_professional_revision_v3.pdf"
+TARGET = ROOT / "paper" / "paper_chinaxiv_course_guideline_final_v4.pdf"
 OUT = ROOT / "docs" / "chinaxiv_sample_comparison.md"
 
 
@@ -68,7 +68,7 @@ def main() -> None:
         "",
         "Sample file: `chinaxiv-202509.00064.pdf`",
         "",
-        "Target file: `paper/paper_chinaxiv_professional_revision_v3.pdf`",
+        "Target file: `paper/paper_chinaxiv_course_guideline_final_v4.pdf`",
         "",
         "## Measured Layout",
         "",
@@ -96,7 +96,7 @@ def main() -> None:
         "",
         "## Formatting Decision",
         "",
-        "The target manuscript uses Letter page size, narrow centered text width, 10 pt body text, 12 pt section headings, a bottom footer rule on every page, academic figure/table captions, numbered citations, and numbered references to match the observable ChinaXiv sample style as closely as practical in Word format.",
+        "The target manuscript follows the course final-report guideline as the controlling requirement: A4 page size, 2.5 cm margins on all sides, Times New Roman body text, 1.5 line spacing, bold section headings, a bottom footer rule with centered page number, academic figure/table captions with source notes, numbered citations, and numbered references. The provided ChinaXiv sample was used for visual comparison, while the course guideline overrides sample-specific Letter-page and narrow-margin differences.",
     ]
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote {OUT}")
