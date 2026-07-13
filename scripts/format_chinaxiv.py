@@ -367,7 +367,8 @@ def add_figure(doc: Document, caption: str, image_path: Path) -> None:
         para.alignment = WD_ALIGN_PARAGRAPH.CENTER
         para.paragraph_format.space_after = Pt(0)
         run = para.add_run()
-        run.add_picture(str(image_path), width=Cm(10.4))
+        image_width = Cm(13.6) if image_path == BENCHMARK_TAXONOMY_FIGURE else Cm(10.4)
+        run.add_picture(str(image_path), width=image_width)
     para = doc.add_paragraph(caption)
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
     para.paragraph_format.space_after = Pt(0)

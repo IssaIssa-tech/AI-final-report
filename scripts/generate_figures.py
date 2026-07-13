@@ -124,24 +124,24 @@ def save_connector_diagram() -> None:
 
 
 def save_benchmark_taxonomy_diagram() -> None:
-    plt.figure(figsize=(6.2, 3.0))
+    plt.figure(figsize=(7.0, 3.2))
     ax = plt.gca()
     ax.axis("off")
-    add_box(ax, (2.35, 2.2), "MLLM evaluation", 1.5, 0.5, "#d9eaf7")
+    add_box(ax, (2.65, 2.25), "MLLM\nevaluation", 1.45, 0.58, "#d9eaf7", font_size=8)
     branches = [
-        ((0.2, 1.35), "Perception\nVQA / GQA"),
-        ((1.65, 0.65), "OCR & documents\nTextVQA / DocVQA"),
-        ((3.15, 0.65), "Reasoning\nScienceQA / MathVista"),
-        ((4.65, 1.35), "Hallucination\nPOPE / HallusionBench"),
+        ((0.15, 0.95), "Perception\nVQA, GQA"),
+        ((1.75, 0.95), "OCR / docs\nTextVQA\nDocVQA"),
+        ((3.35, 0.95), "Reasoning\nScienceQA\nMathVista"),
+        ((4.95, 0.95), "Hallucination\nPOPE\nHallusionBench"),
     ]
     for xy, label in branches:
-        add_box(ax, xy, label, 1.25, 0.65, "#f2f2f2")
-        add_arrow(ax, (3.1, 2.2), (xy[0] + 0.63, xy[1] + 0.65))
-    ax.text(3.1, 0.15, "No single benchmark captures perception, reasoning, grounding, and safety simultaneously.", ha="center", fontsize=8)
-    ax.set_xlim(0, 6.2)
-    ax.set_ylim(0, 2.9)
+        add_box(ax, xy, label, 1.35, 0.78, "#f2f2f2", font_size=7.2)
+        add_arrow(ax, (3.38, 2.25), (xy[0] + 0.68, xy[1] + 0.82))
+    ax.text(3.35, 0.25, "No single benchmark captures perception, reasoning, grounding, and safety simultaneously.", ha="center", fontsize=8)
+    ax.set_xlim(0, 6.45)
+    ax.set_ylim(0.05, 3.0)
     plt.tight_layout()
-    plt.savefig(FIG_DIR / "figure4_benchmark_taxonomy.png", dpi=300)
+    plt.savefig(FIG_DIR / "figure4_benchmark_taxonomy.png", dpi=300, bbox_inches="tight", pad_inches=0.05)
     plt.close()
 
 
