@@ -14,11 +14,17 @@ paper/paper_chinaxiv_final_with_bottom_line_newurl.pdf
 paper/paper_chinaxiv_final_with_bottom_line_newurl_v2.pdf
 paper/paper_chinaxiv_course_guideline_draft.pdf
 paper/paper_chinaxiv_professional_revision_v3.pdf
+paper/Survey_Multimodal_Intelligence_ISSA_25SF51115.docx
 chinaxiv-*.pdf
 Lesson*.pdf
 Lab*.pdf
 docs/*.png
-docs/*.pptx
+FINAL RECOMMENDATIONS.docx
+COMPLETE REPOSITORY STRUCTURE.docx
+I need you to fix my academic paper code repository completely.docx
+MASTER_PROMPT_Professional_Revision_MLLM_Survey.docx
+Master_Prompt_Academic_AI_Paper_ChinaXiv_Reproducible.docx
+~$*.docx
 !checkpoints/.gitkeep
 !logs/.gitkeep
 !datasets/raw/.gitkeep

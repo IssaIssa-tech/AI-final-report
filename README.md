@@ -13,7 +13,6 @@ https://github.com/IssaIssa-tech/AI-final-report
 ## Final Submission Files
 
 - `paper/Survey_Multimodal_Intelligence_ISSA_25SF51115.pdf`
-- `paper/Survey_Multimodal_Intelligence_ISSA_25SF51115.docx`
 - `paper/Survey_Multimodal_Intelligence_ISSA_25SF51115.md`
 - `paper/paper.md`
 - `paper/references.bib`
