@@ -60,7 +60,7 @@ def save_benchmark_timeline() -> None:
     plt.close()
 
 
-def add_box(ax, xy, text: str, width=1.8, height=0.55, face="#eeeeee") -> None:
+def add_box(ax, xy, text: str, width=1.8, height=0.55, face="#eeeeee", font_size=8) -> None:
     x, y = xy
     box = FancyBboxPatch(
         (x, y),
@@ -72,7 +72,7 @@ def add_box(ax, xy, text: str, width=1.8, height=0.55, face="#eeeeee") -> None:
         facecolor=face,
     )
     ax.add_patch(box)
-    ax.text(x + width / 2, y + height / 2, text, ha="center", va="center", fontsize=8, wrap=True)
+    ax.text(x + width / 2, y + height / 2, text, ha="center", va="center", fontsize=font_size, wrap=True)
 
 
 def add_arrow(ax, start, end) -> None:
@@ -81,21 +81,21 @@ def add_arrow(ax, start, end) -> None:
 
 
 def save_architecture_diagram() -> None:
-    plt.figure(figsize=(6.2, 3.0))
+    plt.figure(figsize=(7.2, 3.2))
     ax = plt.gca()
     ax.axis("off")
-    add_box(ax, (0.1, 1.65), "Image / document / video frame", 1.7, 0.55, "#f2f2f2")
-    add_box(ax, (2.15, 1.65), "Vision encoder", 1.25, 0.55, "#d9eaf7")
-    add_box(ax, (3.75, 1.65), "Connector\nprojection / Q-Former /\ncross-attention", 1.55, 0.75, "#e2f0d9")
-    add_box(ax, (5.65, 1.65), "LLM backbone", 1.25, 0.55, "#fff2cc")
-    add_box(ax, (7.2, 1.65), "Grounded answer", 1.25, 0.55, "#fce4d6")
-    for start, end in [((1.8, 1.93), (2.15, 1.93)), ((3.4, 1.93), (3.75, 1.93)), ((5.3, 1.93), (5.65, 1.93)), ((6.9, 1.93), (7.2, 1.93))]:
+    add_box(ax, (0.15, 1.65), "Visual input\nimage / document\nvideo frame", 1.65, 0.75, "#f2f2f2", font_size=7)
+    add_box(ax, (2.15, 1.72), "Vision\nencoder", 1.15, 0.62, "#d9eaf7", font_size=7)
+    add_box(ax, (3.65, 1.55), "Connector\nprojection\nQ-Former\ncross-attn", 1.45, 0.96, "#e2f0d9", font_size=6.5)
+    add_box(ax, (5.48, 1.72), "LLM\nbackbone", 1.12, 0.62, "#fff2cc", font_size=7)
+    add_box(ax, (6.95, 1.72), "Grounded\nanswer", 1.18, 0.62, "#fce4d6", font_size=7)
+    for start, end in [((1.8, 2.02), (2.15, 2.02)), ((3.3, 2.02), (3.65, 2.02)), ((5.1, 2.02), (5.48, 2.02)), ((6.6, 2.02), (6.95, 2.02))]:
         add_arrow(ax, start, end)
-    ax.text(4.25, 0.75, "Core risk: visual evidence can be lost or distorted before language reasoning.", ha="center", fontsize=8)
-    ax.set_xlim(0, 8.6)
-    ax.set_ylim(0.4, 2.8)
+    ax.text(4.15, 0.75, "Core risk: visual evidence can be lost or distorted before language reasoning.", ha="center", fontsize=7.5)
+    ax.set_xlim(0, 8.35)
+    ax.set_ylim(0.35, 2.9)
     plt.tight_layout()
-    plt.savefig(FIG_DIR / "figure1_architecture.png", dpi=300)
+    plt.savefig(FIG_DIR / "figure1_architecture.png", dpi=300, bbox_inches="tight", pad_inches=0.05)
     plt.close()
 
 
