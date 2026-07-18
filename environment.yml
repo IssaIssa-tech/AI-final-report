@@ -1,9 +1,0 @@
-name: ai-final-report
-channels:
-  - conda-forge
-dependencies:
-  - python=3.11
-  - pyyaml>=6.0
-  - matplotlib>=3.8
-  - pymupdf>=1.24
-  - python-docx>=1.1

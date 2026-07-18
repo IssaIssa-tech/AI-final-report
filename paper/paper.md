@@ -389,7 +389,7 @@ This survey argues that the next phase of MLLM research should shift from "Can t
 
 ### 5.6 Limitations
 
-This paper has several limitations. First, it is a survey and does not contain new experiments. Therefore, it cannot make empirical claims about comparative model performance beyond what is supported by cited literature. Second, the field changes rapidly, and new MLLMs may appear after this draft. The bibliography should be updated before final submission. Third, the paper focuses primarily on image-language models and does not deeply cover audio, speech, 3D perception, robotics, or long-form video. Fourth, closed systems such as GPT-4V cannot be fully analyzed because training details and model weights are not public [@openai2023gpt4v]. Fifth, the taxonomy simplifies complex systems into categories; some models fit multiple categories at once.
+This paper has several limitations. First, it is a survey and does not contain new experiments. Therefore, it cannot make empirical claims about comparative model performance beyond what is supported by cited literature. Second, the field changes rapidly, and new MLLMs may appear after this version. The bibliography should be kept updated as the field evolves. Third, the paper focuses primarily on image-language models and does not deeply cover audio, speech, 3D perception, robotics, or long-form video. Fourth, closed systems such as GPT-4V cannot be fully analyzed because training details and model weights are not public [@openai2023gpt4v]. Fifth, the taxonomy simplifies complex systems into categories; some models fit multiple categories at once.
 
 There are also reproducibility limitations. The public repository contains scripts for citation validation, table generation, figure generation, ChinaXiv formatting, layout comparison, and presentation generation, but it does not include benchmark datasets, model checkpoints, or training logs. This is appropriate for a survey but insufficient for an original experimental paper.
 
@@ -431,7 +431,7 @@ The future of MLLMs will likely be shaped by reliability rather than raw fluency
 
 ## Code Availability
 
-The source-code link is printed in the footer of the final PDF submission.
+Source code: https://github.com/IssaIssa-tech/AI-final-report
 
 ## Final Verification Checklist
 

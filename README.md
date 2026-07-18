@@ -4,7 +4,7 @@
 
 ## Final Paper: `paper/Survey_Multimodal_Intelligence_ISSA_25SF51115.pdf`
 
-This repository contains the source manuscript, bibliography, generated figures, tables, and scripts for a ChinaXiv-style Advanced Artificial Intelligence course survey paper. The submitted PDF includes the source-code repository link in the footer of each page.
+This repository contains the source manuscript, bibliography, generated figures, tables, and scripts for a ChinaXiv-style Advanced Artificial Intelligence course survey paper. The submitted PDF includes the source-code repository link in the Code Availability section.
 
 ## Final Submission Files
 
